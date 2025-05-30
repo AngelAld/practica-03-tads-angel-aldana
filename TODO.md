@@ -25,30 +25,29 @@
 
 - [x] Order migrations
 
-- [ ] Seed Locations
-  - [ ] Departments
-  - [ ] Provinces
-  - [ ] Districts
+- [x] Seed Locations
+  - [x] Departments
+  - [x] Provinces
+  - [x] Districts
+
+- [ ] Seed Various tables
+  - [ ] employee_types
+  - [ ] vehicle_types
+  - [ ] contracttypes
+  - [ ] schedule_shift
+  - [ ] schedule_status
 
 - [ ] Create Cruds for tables:
-  - [ ] employee_types
   - [ ] employees
-  - [ ] departament
-  - [ ] province
-  - [ ] district
   - [ ] zones
   - [ ] zone_coords
   - [ ] brands
   - [ ] brand_models
   - [ ] colors
-  - [ ] vehicle_types
   - [ ] vehicles
-  - [ ] contracttypes
   - [ ] contracts
   - [ ] vacations
   - [ ] assistances
-  - [ ] schedule_status
-  - [ ] schedule_shift
   - [ ] schedules
   - [ ] schedule_vehicles
   - [ ] schedule_employees
