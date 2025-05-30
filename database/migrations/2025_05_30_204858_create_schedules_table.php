@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->foreignId('shift_id')
+                ->constrained('scheduleshifts')
+                ->onDelete('restrict');
+            $table->foreignId('status_id')
+                ->constrained('schedulestatuses')
+                ->onDelete('restrict');
+            $table->foreignId('zone_id')
+                ->constrained('zones')
+                ->onDelete('restrict');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }

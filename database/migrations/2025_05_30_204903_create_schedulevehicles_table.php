@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('schedulevehicles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('schedule_id')
+                ->constrained('schedules')
+                ->onDelete('restrict');
+            $table->foreignId('vehicle_id')
+                ->constrained('vehicles')
+                ->onDelete('restrict');
+            $table->boolean('status');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }

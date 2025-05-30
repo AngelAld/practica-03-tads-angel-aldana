@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('scheduleemployees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('schedule_id')
+                ->constrained('schedules')
+                ->onDelete('restrict');
+            $table->foreignId('contract_id')
+                ->constrained('contracts')
+                ->onDelete('restrict');
+            $table->foreignId('employee_id')
+                ->constrained('employees')
+                ->onDelete('restrict');
+            $table->boolean('status')->default(true);
+            $table->foreignId('employeetype_id')
+                ->constrained('employeetypes')
+                ->onDelete('restrict');
+            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }

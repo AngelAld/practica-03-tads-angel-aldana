@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('assistances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('contract_id')
+                ->constrained('contracts')
+                ->onDelete('restrict');
+            $table->timestamp('assistance_date');
             $table->timestamps();
         });
     }

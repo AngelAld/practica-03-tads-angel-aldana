@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('vacations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('contract_id')
+                ->constrained('contracts')
+                ->onDelete('restrict');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('reason')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
