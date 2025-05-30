@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Create migrations for tables:
+- [x] Create migrations for tables:
   - [x] employee_types
   - [x] employees
   - [x] departament
