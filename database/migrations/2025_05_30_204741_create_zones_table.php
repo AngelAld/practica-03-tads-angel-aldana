@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->integer('load_requirement');
             $table->foreignId('district_id')
                 ->constrained('districts')

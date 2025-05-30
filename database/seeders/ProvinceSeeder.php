@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Department;
+use App\Models\Province;
 
 class ProvinceSeeder extends Seeder
 {
@@ -12,6 +13,12 @@ class ProvinceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $department = Department::where('code', '140000')->first();
+
+        Province::create([
+            'name' => 'Chiclayo',
+            'code' => '140100',
+            'department_id' => $department->id,
+        ]);
     }
 }
