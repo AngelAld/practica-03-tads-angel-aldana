@@ -13,7 +13,7 @@
   - [x] colors
   - [x] vehicle_types
   - [x] vehicles
-  - [x] contracttypes
+  - [x] contract_types
   - [x] contracts
   - [x] vacations
   - [x] assistances
@@ -30,24 +30,21 @@
   - [x] Provinces
   - [x] Districts
 
-- [ ] Seed Various tables
+- [ ] Seed Other tables
   - [ ] employee_types
   - [ ] vehicle_types
-  - [ ] contracttypes
+  - [ ] contract_types
   - [ ] schedule_shift
   - [ ] schedule_status
 
 - [ ] Create Cruds for tables:
+  - [ ] employee_types
+  - [ ] vehicle_types
+  - [ ] contract_types
+  - [ ] schedule_shift
+  - [ ] schedule_status
   - [ ] employees
-  - [ ] zones
-  - [ ] zone_coords
   - [ ] brands
   - [ ] brand_models
   - [ ] colors
   - [ ] vehicles
-  - [ ] contracts
-  - [ ] vacations
-  - [ ] assistances
-  - [ ] schedules
-  - [ ] schedule_vehicles
-  - [ ] schedule_employees
