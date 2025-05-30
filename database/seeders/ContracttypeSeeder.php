@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ContracttypeSeeder extends Seeder
 {
@@ -12,6 +12,25 @@ class ContracttypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('contracttypes')->insert([
+            [
+                'name' => 'nombrado',
+                'description' => 'Contrato de nombramiento estable',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'contrato permanente',
+                'description' => 'Contrato de trabajo por tiempo indefinido',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'contrato temporal',
+                'description' => 'Contrato de trabajo por tiempo determinado',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class VehicletypeSeeder extends Seeder
 {
@@ -12,6 +12,19 @@ class VehicletypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('vehicletypes')->insert([
+            [
+                'name' => 'volquete',
+                'description' => 'Vehículo utilizado para transportar residuos en grandes cantidades',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'compactadora',
+                'description' => 'Vehículo utilizado para compactar residuos o materiales',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

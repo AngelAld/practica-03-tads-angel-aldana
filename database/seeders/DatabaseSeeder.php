@@ -23,6 +23,11 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             ProvinceSeeder::class,
             DistrictSeeder::class,
+            EmployeeTypeSeeder::class,
+            VehicletypeSeeder::class,
+            ContracttypeSeeder::class,
+            ScheduleShiftSeeder::class,
+            SchedulestatusSeeder::class,
         ]);
     }
 }

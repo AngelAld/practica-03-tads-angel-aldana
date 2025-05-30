@@ -31,11 +31,11 @@
   - [x] Districts
 
 - [ ] Seed Other tables
-  - [ ] employee_types
-  - [ ] vehicle_types
-  - [ ] contract_types
-  - [ ] schedule_shift
-  - [ ] schedule_status
+  - [x] employee_types
+  - [x] vehicle_types
+  - [x] contract_types
+  - [x] schedule_shift
+  - [x] schedule_status
 
 - [ ] Create Cruds for tables:
   - [ ] employee_types

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleShiftSeeder extends Seeder
 {
@@ -12,6 +12,25 @@ class ScheduleShiftSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('schedule_shifts')->insert([
+            [
+                'name' => 'mañana',
+                'description' => 'Turno de la mañana',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'tarde',
+                'description' => 'Turno de la tarde',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'noche',
+                'description' => 'Turno de la noche',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

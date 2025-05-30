@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EmployeetypeSeeder extends Seeder
 {
@@ -12,6 +12,19 @@ class EmployeetypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('employeetypes')->insert([
+            [
+                'name' => 'conductor',
+                'description' => 'Empleado encargado de conducir vehículos',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'ayudante',
+                'description' => 'Empleado que asiste al conductor u otras tareas',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
