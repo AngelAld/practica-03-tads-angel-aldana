@@ -66,3 +66,10 @@
   - [ ] VehicleImages (Same page as Vehicle CRUD)
   - [ ] RefillSchedule
   - [ ] Holyday
+
+- [x] ScheduleStatus defined:
+  - asignado
+  - listo para iniciar
+  - en proceso
+  - finalizado
+  - cancelado
