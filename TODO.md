@@ -30,7 +30,7 @@
   - [x] Provinces
   - [x] Districts
 
-- [ ] Seed Other tables
+- [x] Seed Other tables
   - [x] employee_types
   - [x] vehicle_types
   - [x] contract_types
@@ -48,3 +48,11 @@
   - [ ] brand_models
   - [ ] colors
   - [ ] vehicles
+
+- [ ] New Tables
+  - [ ] Period (for vacations)
+  - [ ] EmployeeType many to many relationship
+  - [ ] Preferred vehicle driver - vehicle many to many relationship
+  - [ ] Vehicle Images
+  - [ ] Refill Schedule
+  - [ ] Holydays (bounded to period)
