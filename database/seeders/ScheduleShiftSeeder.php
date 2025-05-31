@@ -12,7 +12,7 @@ class ScheduleShiftSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('schedule_shifts')->insert([
+        DB::table('scheduleshifts')->insert([
             [
                 'name' => 'mañana',
                 'description' => 'Turno de la mañana',
