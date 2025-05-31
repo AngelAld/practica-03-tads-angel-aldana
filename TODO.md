@@ -56,3 +56,5 @@
   - [ ] Vehicle Images
   - [ ] Refill Schedule
   - [ ] Holydays (bounded to period)
+
+- [ ] Change employee type table name to employee function
