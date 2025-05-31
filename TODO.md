@@ -37,24 +37,32 @@
   - [x] schedule_shift
   - [x] schedule_status
 
-- [ ] Create Cruds for tables:
-  - [ ] employee_types
-  - [ ] vehicle_types
-  - [ ] contract_types
-  - [ ] schedule_shift
-  - [ ] schedule_status
+- [ ] Create CRUDs for tables:
+  - [-] vehicle_types
+  - [-] contract_types
+  - [-] schedule_shift
+  - [-] schedule_status
+  - [-] brands
+  - [-] brand_models
+  - [-] colors
   - [ ] employees
-  - [ ] brands
-  - [ ] brand_models
-  - [ ] colors
   - [ ] vehicles
 
 - [ ] New Tables
   - [ ] Period (for vacations)
   - [ ] EmployeeType many to many relationship
-  - [ ] Preferred vehicle driver - vehicle many to many relationship
+  - [ ] VehicleDriver many to many relationship
   - [ ] Vehicle Images
   - [ ] Refill Schedule
   - [ ] Holydays (bounded to period)
 
 - [ ] Change employee type table name to employee function
+
+- [ ] CRUDs For New Tables
+  - [ ] Period
+  - [ ] EmployeeFunction
+  - [ ] EmployeeFunctionDetail (the many to many relationship)
+  - [ ] VehicleDriver (the employee to vehicle many to many relationship)
+  - [ ] VehicleImages (Same page as Vehicle CRUD)
+  - [ ] RefillSchedule
+  - [ ] Holyday
