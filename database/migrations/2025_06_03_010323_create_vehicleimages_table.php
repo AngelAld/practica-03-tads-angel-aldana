@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employeetypes', function (Blueprint $table) {
+        Schema::create('vehicleimages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
+            $table->string('image_path');
+            $table->boolean('is_profile')->default(false);
+            $table->boolean('status')->default(true);
+            $table->foreignId('vehicle_id')
+                ->constrained('vehicles')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employeetypes');
+        Schema::dropIfExists('vehicleimages');
     }
 };

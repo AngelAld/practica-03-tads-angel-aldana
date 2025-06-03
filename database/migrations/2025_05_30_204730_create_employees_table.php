@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('phone');
             $table->boolean('status')->default(true);
-            $table->foreignId('type_id')
-                ->constrained('employeetypes')
-                ->onDelete('cascade');
+            // $table->foreignId('function_id')         // Ahora se maneja con un many to many
+            //     ->constrained('employeefunctions')
+            //     ->onDelete('cascade');
             $table->timestamps();
         });
     }

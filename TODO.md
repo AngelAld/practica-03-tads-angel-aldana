@@ -48,15 +48,15 @@
   - [ ] employees
   - [ ] vehicles
 
-- [ ] New Tables
-  - [ ] Period (for vacations)
-  - [ ] EmployeeType many to many relationship
-  - [ ] VehicleDriver many to many relationship
-  - [ ] Vehicle Images
-  - [ ] Refill Schedule
-  - [ ] Holydays (bounded to period)
+- [x] New Tables
+  - [x] Period (for vacations)
+  - [x] EmployeeFunction many to many relationship
+  - [x] VehicleDriver many to many relationship
+  - [x] Vehicle Images
+  - [x] Refill Schedule
+  - [x] Holydays (bounded to period)
 
-- [ ] Change employee type table name to employee function
+- [x] Change employee type table name to employee function
 
 - [ ] CRUDs For New Tables
   - [ ] Period

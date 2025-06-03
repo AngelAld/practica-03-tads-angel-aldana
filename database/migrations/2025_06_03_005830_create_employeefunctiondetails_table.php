@@ -11,22 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('scheduleemployees', function (Blueprint $table) {
+        Schema::create('employeefunctiondetails', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('schedule_id')
-                ->constrained('schedules')
-                ->onDelete('restrict');
-            $table->foreignId('contract_id')
-                ->constrained('contracts')
+            $table->foreignId('employeefunction_id')
+                ->constrained('employeefunctions')
                 ->onDelete('restrict');
             $table->foreignId('employee_id')
                 ->constrained('employees')
                 ->onDelete('restrict');
             $table->boolean('status')->default(true);
-            $table->foreignId('employeefunction_id')
-                ->constrained('employeefunctions')
-                ->onDelete('restrict');
-            $table->text('observation')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('scheduleemployees');
+        Schema::dropIfExists('employeefunctiondetails');
     }
 };

@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vacations', function (Blueprint $table) {
+        Schema::create('holydays', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('contract_id')
-                ->constrained('contracts')
-                ->onDelete('restrict');
+            $table->string('name');
+            $table->date('date');
             $table->foreignId('period_id')
                 ->constrained('periods')
                 ->onDelete('restrict');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('reason')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vacations');
+        Schema::dropIfExists('holydays');
     }
 };
