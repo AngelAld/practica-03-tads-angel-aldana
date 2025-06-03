@@ -48,7 +48,7 @@
   - [ ] employees
   - [ ] vehicles
 
-- [ ] New Tables
+- [x] New Tables
   - [x] Period (for vacations)
   - [x] EmployeeFunction many to many relationship
   - [x] VehicleDriver many to many relationship
