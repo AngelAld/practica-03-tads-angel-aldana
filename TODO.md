@@ -53,7 +53,7 @@
   - [x] EmployeeFunction many to many relationship
   - [x] VehicleDriver many to many relationship
   - [x] Vehicle Images
-  - [ ] Refill Schedule
+  - [x] Refill Schedule
   - [x] Holydays (bounded to period)
 
 - [x] Change employee type table name to employee function
