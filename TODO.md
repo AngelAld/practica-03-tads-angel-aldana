@@ -52,7 +52,7 @@
   - [x] Period (for vacations)
   - [x] EmployeeFunction many to many relationship
   - [x] VehicleDriver many to many relationship
-  - [ ] Vehicle Images
+  - [x] Vehicle Images
   - [ ] Refill Schedule
   - [ ] Holydays (bounded to period)
 
