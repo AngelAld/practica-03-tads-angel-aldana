@@ -5,14 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EmployeetypeSeeder extends Seeder
+class EmployeefunctionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('employeetypes')->insert([
+        DB::table('employeefunctions')->insert([
             [
                 'name' => 'conductor',
                 'description' => 'Empleado encargado de conducir vehículos',

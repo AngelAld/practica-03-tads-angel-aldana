@@ -23,8 +23,8 @@ return new class extends Migration
                 ->constrained('employees')
                 ->onDelete('restrict');
             $table->boolean('status')->default(true);
-            $table->foreignId('employeetype_id')
-                ->constrained('employeetypes')
+            $table->foreignId('employeefunction_id')
+                ->constrained('employeefunctions')
                 ->onDelete('restrict');
             $table->text('observation')->nullable();
             $table->timestamps();
