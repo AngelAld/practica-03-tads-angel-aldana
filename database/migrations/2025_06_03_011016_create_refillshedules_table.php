@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignId('driver_id')
                 ->constrained('employeefunctiondetails')
                 ->onDelete('restrict');
-            $table->foreignId('schedule_status_id')
-                ->constrained('schedule_status')
+            $table->foreignId('schedulestatus_id')
+                ->constrained('schedulestatuses')
                 ->onDelete('restrict');
             $table->timestamps();
         });
