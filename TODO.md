@@ -50,7 +50,7 @@
 
 - [ ] New Tables
   - [x] Period (for vacations)
-  - [ ] EmployeeFunction many to many relationship
+  - [x] EmployeeFunction many to many relationship
   - [ ] VehicleDriver many to many relationship
   - [ ] Vehicle Images
   - [ ] Refill Schedule
