@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('contract_id')
                 ->constrained('contracts')
                 ->onDelete('restrict');
+            $table->foreignId('period_id')
+                ->constrained('periods')
+                ->onDelete('restrict');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('reason')->nullable();
