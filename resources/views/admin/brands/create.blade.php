@@ -12,7 +12,6 @@
         {!! Form::open(['route' => 'admin.brands.store', 'files' => true, 'method' => 'POST']) !!}
         @include('admin.brands.template.form')
         <button type="submit" class="btn btn-primary">Registrar</button>
-        
         {!! Form::close() !!}
     {{-- </div>
 </div>

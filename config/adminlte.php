@@ -329,6 +329,11 @@ return [
         ],
         ['header' => 'account_settings'],
         [
+            'text' => 'Marcas',
+            'route' => 'admin.brands.index',
+            'icon' => 'fas fa-copyright',
+        ],
+        [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
