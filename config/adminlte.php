@@ -334,6 +334,15 @@ return [
             'icon' => 'fas fa-copyright',
         ],
         [
+            'text' => 'Modelos',
+            'route' => 'admin.brandmodels.index',
+            'icon' => 'fas fa-fw fa-tags',
+        ],[
+            'text' => 'Colores de Vehículos',
+            'route' => 'admin.colors.index',
+            'icon' => 'fas fa-fw fa-tags',
+        ],
+        [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
