@@ -23,13 +23,21 @@
         </div>
     </div>
     <div class="col-4">
-        <div class="form-group">
-            <div class="p-2 m-2" style="border: 1px solid #ccc;">
-                <img id="imageButton" src="{{ asset($brand->logo ?? 'storage/brands/no_image.png') }}" alt="Logo de la Marca"
-                    class="img-fluid" style="width: 100%; height: auto; cursor: pointer">
+    <div class="form-group text-center">
+        <div class="p-2 m-2" style="border: 1px solid #ccc; border-radius: 8px; background: #fafbfc;">
+            <img
+                id="imageButton"
+                src="{{ isset($brand) && $brand->logo ? asset('storage/' . $brand->logo) : asset('storage/brand_logo/no_image.png') }}"
+                alt="Logo de la Marca"
+                class="img-fluid"
+                style="max-width: 180px; max-height: 180px; object-fit: contain; border-radius: 8px; cursor: pointer; background: #fff;"
+            >
+            <div class="mt-2 text-muted" style="font-size: 0.95em;">
+                Haz clic en la imagen para seleccionar un logo
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>

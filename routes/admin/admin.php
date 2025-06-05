@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BrandmodelController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::middleware([
     'auth:sanctum',
@@ -12,3 +15,7 @@ Route::middleware([
     });
     // Aquí puedes agregar más rutas administrativas
 });
+
+Route::resource('brands', BrandController::class)->names('admin.brands');
+Route::get('brands/create', [BrandController::class, 'create'])->name('admin.brands.create');
+Route::resource('models', BrandmodelController::class)->names('admin.models');
