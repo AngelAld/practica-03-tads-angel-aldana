@@ -1,7 +1,7 @@
 {{-- resources/views/tu-vista.blade.php --}}
 @extends('adminlte::page')
 
-@section('title', 'Título de la Página')
+@section('title', 'RSU - Recojo de Residuos Sólidos')
 
 @section('content_header')
     <h1>AdminLTE</h1>

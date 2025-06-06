@@ -337,11 +337,18 @@ return [
             'text' => 'Modelos',
             'route' => 'admin.brandmodels.index',
             'icon' => 'fas fa-fw fa-tags',
-        ],[
+        ],
+        [
             'text' => 'Colores de Vehículos',
             'route' => 'admin.colors.index',
             'icon' => 'fas fa-fw fa-tags',
         ],
+        [
+            'text' => 'Empleados',
+            'route' => 'admin.employees.index',
+            'icon' => 'fas fa-fw fa-users',
+        ],
+
         [
             'text' => 'profile',
             'url' => 'admin/settings',

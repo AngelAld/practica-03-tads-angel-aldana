@@ -21,3 +21,4 @@ Route::middleware([
 Route::resource('brands', BrandController::class)->names('admin.brands');
 Route::resource('brandmodels', BrandmodelController::class)->names('admin.brandmodels');
 Route::resource('colors', ColorController::class)->names('admin.colors');
+Route::resource('employees', \App\Http\Controllers\EmployeeController::class)->names('admin.employees');
