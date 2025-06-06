@@ -75,7 +75,13 @@ Este proyecto es una aplicación web desarrollada con Laravel, para el apoyo de 
     npm run build
     ```
 
-9. Inicia el servidor de desarrollo:
+9. Vincula las imagenes:
+
+    ```sh
+    php artisan storage:link
+    ```
+
+10. Inicia el servidor de desarrollo:
 
     ```sh
     php artisan serve
