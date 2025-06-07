@@ -220,22 +220,24 @@
                                     // O, si no usas AJAX en DataTable, puedes hacer una petición para obtener la nueva fila y agregarla manualmente
                                 },
                                 error: function(xhr) {
-                                    var response = xhr.responseJSON;
-                                    Swal.fire({
-                                        title: "Error",
-                                        icon: "error",
-                                        text: response && response
-                                            .message ? response
-                                            .message : (xhr
-                                                .responseText ? xhr
-                                                .responseText :
-                                                "Ocurrió un error"),
-                                        draggable: true
-                                    });
+                                var response = xhr.responseJSON;
+                                let msg = "Ocurrió un error";
+                                if (response && response.errors) {
+                                    msg = Object.values(response.errors).join('\n');
+                                } else if (response && response.message) {
+                                    msg = response.message;
+                                } else if (xhr.responseText) {
+                                    msg = xhr.responseText;
                                 }
-                            });
+                                Swal.fire({
+                                    title: "Error",
+                                    icon: "error",
+                                    text: msg,
+                                    draggable: true
+                                });
+                            }
                         });
-                    }
+                    });
                 });
             });
 
@@ -274,20 +276,22 @@
                                         null, false);
                                 },
                                 error: function(xhr) {
-                                    var response = xhr.responseJSON;
-                                    Swal.fire({
-                                        title: "Error",
-                                        icon: "error",
-                                        text: response && response
-                                            .message ? response
-                                            .message : (xhr
-                                                .responseText ? xhr
-                                                .responseText :
-                                                "Ocurrió un error"),
-                                        draggable: true
-                                    });
+                                var response = xhr.responseJSON;
+                                let msg = "Ocurrió un error";
+                                if (response && response.errors) {
+                                    msg = Object.values(response.errors).join('\n');
+                                } else if (response && response.message) {
+                                    msg = response.message;
+                                } else if (xhr.responseText) {
+                                    msg = xhr.responseText;
                                 }
-                            });
+                                Swal.fire({
+                                    title: "Error",
+                                    icon: "error",
+                                    text: msg,
+                                    draggable: true
+                                });
+                            }
                         });
                     }
                 });
@@ -322,19 +326,23 @@
                                 });
                             },
                             error: function(xhr) {
-                                var response = xhr.responseJSON;
-                                Swal.fire({
-                                    title: "Error",
-                                    icon: "error",
-                                    text: response && response.message ?
-                                        response.message : (xhr.responseText ?
-                                            xhr.responseText :
-                                            "Ocurrió un error"),
-                                    draggable: true
-                                });
+                            var response = xhr.responseJSON;
+                            let msg = "Ocurrió un error";
+                            if (response && response.errors) {
+                                msg = Object.values(response.errors).join('\n');
+                            } else if (response && response.message) {
+                                msg = response.message;
+                            } else if (xhr.responseText) {
+                                msg = xhr.responseText;
                             }
-                        });
-                    }
+                            Swal.fire({
+                                title: "Error",
+                                icon: "error",
+                                text: msg,
+                                draggable: true
+                            });
+                        }
+                    });
                 });
             });
         });

@@ -16,37 +16,10 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Código HEX</th>
-                    <th>Creación</th>
-                    <th>Actualización</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($colors as $color)
-                    <tr>
-                        <td>{{ $color->id }}</td>
-                        <td>{{ $color->name }}</td>
-                        <td>{{ $color->hex_code }} </td>
-                        <td>{{ $color->created_at }}</td>
-                        <td>{{ $color->updated_at }}</td>
-                        <td>
-                            <button class="btn btn-success btn-sm btnEditar" id="{{ $color->id }}">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.colors.destroy', $color->id) }}" method="POST" class="frmDelete">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
         </table>
     </div>
 </div>
@@ -76,8 +49,48 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
+    const destroyRoute = "{{ route('admin.colors.destroy', ['color' => 'COLOR_ID']) }}";
+    const csrfToken = "{{ csrf_token() }}";
+
     $(document).ready(function() {
-        $('#datatable').DataTable({
+        // Inicializa DataTable con AJAX
+        let table = $('#datatable').DataTable({
+            ajax: "{{ route('admin.colors.index') }}",
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { 
+                    data: 'hex_code',
+                    render: function(data) {
+                        return `<span style="background: ${data}; padding: 2px 10px; border-radius: 3px; color: #fff;">${data}</span>`;
+                    }
+                },
+                {
+                    data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        return `<button class="btn btn-success btn-sm btnEditar" id="${data}"><i class="fas fa-pen"></i></button>`;
+                    }
+                },
+                {
+                    data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data) {
+                        let actionUrl = destroyRoute.replace('COLOR_ID', data);
+                        return `
+                            <form action="${actionUrl}" method="POST" class="frmDelete" style="display:inline;">
+                                <input type="hidden" name="_token" value="${csrfToken}">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        `;
+                    }
+                }
+            ],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json'
             }
@@ -109,9 +122,8 @@
                                     icon: "success",
                                     text: response.message,
                                     draggable: true
-                                }).then(() => {
-                                    location.reload();
                                 });
+                                table.ajax.reload(null, false);
                             },
                             error: function(xhr) {
                                 var response = xhr.responseJSON;
@@ -138,7 +150,7 @@
                     $('.modal-title').html("Editar color");
                     $('#ModalCenter .modal-body').html(response);
                     $('#ModalCenter').modal('show');
-                    $('#ModalCenter form').on('submit', function(e) {
+                    $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(e) {
                         e.preventDefault();
                         var form = $(this);
                         var formdata = new FormData(this);
@@ -155,9 +167,8 @@
                                     icon: "success",
                                     text: response.message,
                                     draggable: true
-                                }).then(() => {
-                                    location.reload();
                                 });
+                                table.ajax.reload(null, false);
                             },
                             error: function(xhr) {
                                 var response = xhr.responseJSON;
@@ -193,13 +204,13 @@
                         type: form.attr('method'),
                         data: form.serialize(),
                         success: function(response) {
-                            location.reload();
                             Swal.fire({
                                 title: "Proceso exitoso",
                                 icon: "success",
                                 text: response.message,
                                 draggable: true
                             });
+                            table.ajax.reload(null, false);
                         },
                         error: function(xhr) {
                             var response = xhr.responseJSON;
