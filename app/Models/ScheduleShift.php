@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class ScheduleShift extends Model
 {
     use HasFactory;
+
+    protected $table = 'scheduleshifts';
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 }

@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -348,11 +347,29 @@ return [
             'route' => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-users',
         ],
+
+                [
+            'text' => 'Tipos de Vehículos',
+            'route' => 'admin.vehicle_types.index',
+            'icon' => 'fas fa-car',
+        ],
+        [
+            'text' => 'Turnos de Horario',
+            'route' => 'admin.schedule_shifts.index',
+            'icon' => 'fas fa-clock',
+        ],
+        [
+            'text' => 'Estados de Horario',
+            'route' => 'admin.schedule_statuses.index',
+            'icon' => 'fas fa-bookmark',
+        ],
+
         [
             'text' => 'Vehículos',
             'route' => 'admin.vehicles.index',
             'icon' => 'fas fa-fw fa-car',
         ],
+
 
         [
             'text' => 'profile',
@@ -363,6 +380,11 @@ return [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Tipos de Contrato',
+            'route' => 'admin.contract_types.index',
+            'icon' => 'fas fa-file-contract',
         ],
         [
             'text' => 'multilevel',
