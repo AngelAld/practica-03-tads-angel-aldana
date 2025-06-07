@@ -11,8 +11,11 @@ class BrandController extends Controller
 {
     public function index(Request $request)
     {
-        $brands = Brand::all();
-        return view('admin.brands.index', compact('brands'));
+            if ($request->ajax()) {
+            $brands = Brand::all();
+            return response()->json(['data' => $brands]);
+        }
+        return view('admin.brands.index');
     }
     public function create()
     {
