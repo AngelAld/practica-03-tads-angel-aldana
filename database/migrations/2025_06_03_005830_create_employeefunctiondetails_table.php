@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employeefunction_id')
                 ->constrained('employeefunctions')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->foreignId('employee_id')
                 ->constrained('employees')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

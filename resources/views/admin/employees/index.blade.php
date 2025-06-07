@@ -249,7 +249,9 @@
                         $('.modal-title').html("Editar empleado");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
-                        $('#ModalCenter form').on('submit', function(e) {
+                        // Solución: quitar handlers anteriores antes de agregar uno nuevo
+                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
+                        e) {
                             e.preventDefault();
                             var form = $(this);
                             var formdata = new FormData(this);
