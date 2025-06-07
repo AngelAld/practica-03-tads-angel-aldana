@@ -77,6 +77,27 @@
                 ]) !!}
             </div>
         </div>
+        <div class="form-group">
+            {!! Form::label('functions', 'Funciones') !!}
+            <div class="row">
+                @foreach ($functions as $id => $name)
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            {!! Form::checkbox(
+                                'functions[]',
+                                $id,
+                                isset($employee) ? $employee->functions->where('pivot.status', 1)->contains($id) : false,
+                                [
+                                    'class' => 'form-check-input',
+                                    'id' => "function_$id",
+                                ],
+                            ) !!}
+                            {!! Form::label("function_$id", $name, ['class' => 'form-check-label']) !!}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="form-group text-center">

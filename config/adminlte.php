@@ -348,6 +348,11 @@ return [
             'route' => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-users',
         ],
+        [
+            'text' => 'Vehículos',
+            'route' => 'admin.vehicles.index',
+            'icon' => 'fas fa-fw fa-car',
+        ],
 
         [
             'text' => 'profile',
