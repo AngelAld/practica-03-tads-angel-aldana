@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Employeefunction extends Model
 {
     use HasFactory;
+
+    public function employees()
+    {
+        return $this->belongsToMany(
+            Employee::class,
+            'employeefunctiondetails',
+            'employeefunction_id',
+            'employee_id'
+        )->withTimestamps()->withPivot('status');
+    }
 }

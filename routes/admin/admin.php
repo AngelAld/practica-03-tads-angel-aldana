@@ -25,7 +25,11 @@ Route::resource('brands', BrandController::class)->names('admin.brands');
 Route::resource('brandmodels', BrandmodelController::class)->names('admin.brandmodels');
 Route::resource('colors', ColorController::class)->names('admin.colors');
 Route::resource('employees', \App\Http\Controllers\EmployeeController::class)->names('admin.employees');
+
 Route::resource('vehicle_types', VehicleTypeController::class)->names('admin.vehicle_types');
 Route::resource('schedule_shifts', ScheduleShiftController::class)->names('admin.schedule_shifts');
 Route::resource('contract_types', ContracttypeController::class)->names('admin.contract_types');
 Route::resource('schedule_statuses', \App\Http\Controllers\SchedulestatusController::class)->names('admin.schedule_statuses');
+
+Route::resource('vehicles', \App\Http\Controllers\VehicleController::class)->names('admin.vehicles');
+

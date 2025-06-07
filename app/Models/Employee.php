@@ -21,4 +21,14 @@ class Employee extends Model
         'phone',
         'status',
     ];
+
+    public function functions()
+    {
+        return $this->belongsToMany(
+            Employeefunction::class,
+            'employeefunctiondetails',
+            'employee_id',
+            'employeefunction_id'
+        )->withTimestamps()->withPivot('status');
+    }
 }

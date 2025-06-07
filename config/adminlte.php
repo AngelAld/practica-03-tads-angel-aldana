@@ -347,6 +347,7 @@ return [
             'route' => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-users',
         ],
+
                 [
             'text' => 'Tipos de Vehículos',
             'route' => 'admin.vehicle_types.index',
@@ -362,6 +363,14 @@ return [
             'route' => 'admin.schedule_statuses.index',
             'icon' => 'fas fa-bookmark',
         ],
+
+        [
+            'text' => 'Vehículos',
+            'route' => 'admin.vehicles.index',
+            'icon' => 'fas fa-fw fa-car',
+        ],
+
+
         [
             'text' => 'profile',
             'url' => 'admin/settings',

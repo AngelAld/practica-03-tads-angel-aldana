@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Empleados')
+@section('title', 'Vehículos')
 
 @section('content')
     <div class="p-2"></div>
@@ -8,60 +8,58 @@
         <div class="card-header">
             <button type="button" class="btn btn-primary float-right" id="btnNuevo"><i class="fas fa-folder-plus"></i>
                 Nuevo</button>
-            <h3>Empleados</h3>
+            <h3>Vehículos</h3>
         </div>
         <div class="card-body">
             <table class="table table-sm table-bordered text-center" id="datatable">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>DNI</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Licencia</th>
-                        <th>Dirección</th>
-                        <th>Email</th>
-                        <th>Foto</th>
-                        <th>Teléfono</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Placa</th>
+                        <th>Año</th>
+                        <th>Cap. Carga</th>
+                        <th>Descripción</th>
+                        <th>Cap. Combustible</th>
+                        <th>Ocupantes</th>
                         <th>Estado</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Marca</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($employees as $employee)
+                    @foreach ($vehicles as $vehicle)
                         <tr>
-                            <td>{{ $employee->id }}</td>
-                            <td>{{ $employee->names }}</td>
-                            <td>{{ $employee->lastnames }}</td>
-                            <td>{{ $employee->dni }}</td>
-                            <td>{{ $employee->birthday }}</td>
-                            <td>{{ $employee->license }}</td>
-                            <td>{{ $employee->address }}</td>
-                            <td>{{ $employee->email }}</td>
+                            <td>{{ $vehicle->id }}</td>
+                            <td>{{ $vehicle->name }}</td>
+                            <td>{{ $vehicle->code }}</td>
+                            <td>{{ $vehicle->plate }}</td>
+                            <td>{{ $vehicle->year }}</td>
+                            <td>{{ $vehicle->load_capacity }}</td>
+                            <td>{{ $vehicle->description }}</td>
+                            <td>{{ $vehicle->fuel_capacity }}</td>
+                            <td>{{ $vehicle->ocuppants }}</td>
                             <td>
-                                @if ($employee->photo)
-                                    <img src="{{ asset('storage/' . $employee->photo) }}" alt="Foto" width="40">
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>{{ $employee->phone }}</td>
-                            <td>
-                                @if ($employee->status)
+                                @if ($vehicle->status)
                                     <span class="badge badge-success">Activo</span>
                                 @else
                                     <span class="badge badge-danger">Inactivo</span>
                                 @endif
                             </td>
+                            <td>{{ $vehicle->model_id }}</td>
+                            <td>{{ $vehicle->color_id }}</td>
+                            <td>{{ $vehicle->brand_id }}</td>
                             <td>
-                                <button class="btn btn-success btn-sm btnEditar" id="{{ $employee->id }}">
+                                <button class="btn btn-success btn-sm btnEditar" id="{{ $vehicle->id }}">
                                     <i class="fas fa-pen"></i>
                                 </button>
                             </td>
                             <td>
-                                <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST"
+                                <form action="{{ route('admin.vehicles.destroy', $vehicle->id) }}" method="POST"
                                     class="frmDelete">
                                     @csrf
                                     @method('delete')
@@ -103,48 +101,39 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
-        const destroyRoute = "{{ route('admin.employees.destroy', ['employee' => 'EMPLOYEE_ID']) }}";
+        const destroyRoute = "{{ route('admin.vehicles.destroy', ['vehicle' => 'VEHICLE_ID']) }}";
         const csrfToken = "{{ csrf_token() }}";
     </script>
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
-                ajax: '{{ route('admin.employees.index') }}',
+                ajax: '{{ route('admin.vehicles.index') }}',
                 columns: [{
                         data: 'id'
                     },
                     {
-                        data: 'names'
+                        data: 'name'
                     },
                     {
-                        data: 'lastnames'
+                        data: 'code'
                     },
                     {
-                        data: 'dni'
+                        data: 'plate'
                     },
                     {
-                        data: 'birthday'
+                        data: 'year'
                     },
                     {
-                        data: 'license'
+                        data: 'load_capacity'
                     },
                     {
-                        data: 'address'
+                        data: 'description'
                     },
                     {
-                        data: 'email'
+                        data: 'fuel_capacity'
                     },
                     {
-                        data: 'photo',
-                        render: function(data) {
-                            if (data) {
-                                return `<img src="/storage/${data}" alt="Foto" width="40">`;
-                            }
-                            return '-';
-                        }
-                    },
-                    {
-                        data: 'phone'
+                        data: 'ocuppants'
                     },
                     {
                         data: 'status',
@@ -152,6 +141,15 @@
                             return data ? '<span class="badge badge-success">Activo</span>' :
                                 '<span class="badge badge-danger">Inactivo</span>';
                         }
+                    },
+                    {
+                        data: 'model_id'
+                    },
+                    {
+                        data: 'color_id'
+                    },
+                    {
+                        data: 'brand_id'
                     },
                     {
                         data: 'id',
@@ -166,8 +164,7 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            // Reemplaza EMPLOYEE_ID por el id real
-                            let actionUrl = destroyRoute.replace('EMPLOYEE_ID', data);
+                            let actionUrl = destroyRoute.replace('VEHICLE_ID', data);
                             return `
                                 <form action="${actionUrl}" method="POST" class="frmDelete">
                                     <input type="hidden" name="_token" value="${csrfToken}">
@@ -188,10 +185,10 @@
             // Botón Nuevo
             $('#btnNuevo').click(function() {
                 $.ajax({
-                    url: "{{ route('admin.employees.create') }}",
+                    url: "{{ route('admin.vehicles.create') }}",
                     type: "GET",
                     success: function(response) {
-                        $('#ModalLongTitle').html("Nuevo empleado");
+                        $('#ModalLongTitle').html("Nuevo vehículo");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
@@ -213,11 +210,8 @@
                                         text: response.message,
                                         draggable: true
                                     });
-                                    // Agrega la nueva fila a la tabla
                                     $('#datatable').DataTable().ajax.reload(
-                                        null, false
-                                    ); // Si usas AJAX en DataTable
-                                    // O, si no usas AJAX en DataTable, puedes hacer una petición para obtener la nueva fila y agregarla manualmente
+                                        null, false);
                                 },
                                 error: function(xhr) {
                                     var response = xhr.responseJSON;
@@ -243,15 +237,14 @@
             $(document).on('click', '.btnEditar', function() {
                 var id = $(this).attr("id");
                 $.ajax({
-                    url: "{{ route('admin.employees.edit', 'id') }}".replace('id', id),
+                    url: "{{ route('admin.vehicles.edit', 'id') }}".replace('id', id),
                     type: "GET",
                     success: function(response) {
-                        $('.modal-title').html("Editar empleado");
+                        $('.modal-title').html("Editar vehículo");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
-                        // Solución: quitar handlers anteriores antes de agregar uno nuevo
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
-                        e) {
+                            e) {
                             e.preventDefault();
                             var form = $(this);
                             var formdata = new FormData(this);
@@ -269,7 +262,6 @@
                                         text: response.message,
                                         draggable: true
                                     });
-                                    // Actualiza la fila editada
                                     $('#datatable').DataTable().ajax.reload(
                                         null, false);
                                 },
@@ -312,7 +304,6 @@
                             type: form.attr('method'),
                             data: form.serialize(),
                             success: function(response) {
-                                // Elimina la fila del DOM
                                 form.closest('tr').remove();
                                 Swal.fire({
                                     title: "Proceso exitoso",
