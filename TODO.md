@@ -61,7 +61,7 @@
 - [ ] CRUDs For New Tables
   - [ ] Period
   - [ ] EmployeeFunction
-  - [ ] EmployeeFunctionDetail (the many to many relationship)
+  - [x] EmployeeFunctionDetail (the many to many relationship)
   - [ ] VehicleDriver (the employee to vehicle many to many relationship)
   - [ ] VehicleImages (Same page as Vehicle CRUD)
   - [ ] RefillSchedule
@@ -73,3 +73,22 @@
   - en proceso
   - finalizado
   - cancelado
+
+
+<!-- Coorecciones del la del viernes 6 de junio -->
+- [ ] Add hours for schedule shifts
+- [ ] Add assistances to employees
+- [ ] Add validations to the forms of employees and vehicles
+  - [ ] license plate
+  - [ ] document number
+  - [ ] phone number
+  - [ ] email
+  - [ ] etc.
+
+
+  - [ ] Personalizar el template de adminlte (Colores, logos, textos, etc.)
+  - [ ] Agregar la libreria para traducir jetstream a español (https://github.com/amendozaaguiar/laraveles-spanish-for-jetstream)
+  - [ ] Agregar la traduccion de datatable (teniendo encuenta el firewall de la universidad)
+
+
+  

@@ -23,3 +23,5 @@ Route::resource('brandmodels', BrandmodelController::class)->names('admin.brandm
 Route::resource('colors', ColorController::class)->names('admin.colors');
 Route::resource('employees', \App\Http\Controllers\EmployeeController::class)->names('admin.employees');
 Route::resource('vehicles', \App\Http\Controllers\VehicleController::class)->names('admin.vehicles');
+Route::resource('periods', \App\Http\Controllers\PeriodController::class)->names('admin.periods');
+
