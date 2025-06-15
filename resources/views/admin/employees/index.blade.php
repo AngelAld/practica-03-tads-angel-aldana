@@ -220,24 +220,22 @@
                                     // O, si no usas AJAX en DataTable, puedes hacer una petición para obtener la nueva fila y agregarla manualmente
                                 },
                                 error: function(xhr) {
-                                var response = xhr.responseJSON;
-                                let msg = "Ocurrió un error";
-                                if (response && response.errors) {
-                                    msg = Object.values(response.errors).join('\n');
-                                } else if (response && response.message) {
-                                    msg = response.message;
-                                } else if (xhr.responseText) {
-                                    msg = xhr.responseText;
+                                    var response = xhr.responseJSON;
+                                    Swal.fire({
+                                        title: "Error",
+                                        icon: "error",
+                                        text: response && response
+                                            .message ? response
+                                            .message : (xhr
+                                                .responseText ? xhr
+                                                .responseText :
+                                                "Ocurrió un error"),
+                                        draggable: true
+                                    });
                                 }
-                                Swal.fire({
-                                    title: "Error",
-                                    icon: "error",
-                                    text: msg,
-                                    draggable: true
-                                });
-                            }
+                            });
                         });
-                    });
+                    }
                 });
             });
 
@@ -251,9 +249,7 @@
                         $('.modal-title').html("Editar empleado");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
-                        // Solución: quitar handlers anteriores antes de agregar uno nuevo
-                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
-                        e) {
+                        $('#ModalCenter form').on('submit', function(e) {
                             e.preventDefault();
                             var form = $(this);
                             var formdata = new FormData(this);
@@ -276,22 +272,20 @@
                                         null, false);
                                 },
                                 error: function(xhr) {
-                                var response = xhr.responseJSON;
-                                let msg = "Ocurrió un error";
-                                if (response && response.errors) {
-                                    msg = Object.values(response.errors).join('\n');
-                                } else if (response && response.message) {
-                                    msg = response.message;
-                                } else if (xhr.responseText) {
-                                    msg = xhr.responseText;
+                                    var response = xhr.responseJSON;
+                                    Swal.fire({
+                                        title: "Error",
+                                        icon: "error",
+                                        text: response && response
+                                            .message ? response
+                                            .message : (xhr
+                                                .responseText ? xhr
+                                                .responseText :
+                                                "Ocurrió un error"),
+                                        draggable: true
+                                    });
                                 }
-                                Swal.fire({
-                                    title: "Error",
-                                    icon: "error",
-                                    text: msg,
-                                    draggable: true
-                                });
-                            }
+                            });
                         });
                     }
                 });
@@ -326,23 +320,19 @@
                                 });
                             },
                             error: function(xhr) {
-                            var response = xhr.responseJSON;
-                            let msg = "Ocurrió un error";
-                            if (response && response.errors) {
-                                msg = Object.values(response.errors).join('\n');
-                            } else if (response && response.message) {
-                                msg = response.message;
-                            } else if (xhr.responseText) {
-                                msg = xhr.responseText;
+                                var response = xhr.responseJSON;
+                                Swal.fire({
+                                    title: "Error",
+                                    icon: "error",
+                                    text: response && response.message ?
+                                        response.message : (xhr.responseText ?
+                                            xhr.responseText :
+                                            "Ocurrió un error"),
+                                    draggable: true
+                                });
                             }
-                            Swal.fire({
-                                title: "Error",
-                                icon: "error",
-                                text: msg,
-                                draggable: true
-                            });
-                        }
-                    });
+                        });
+                    }
                 });
             });
         });
