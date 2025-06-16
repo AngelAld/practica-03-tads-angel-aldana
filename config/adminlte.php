@@ -328,6 +328,11 @@ return [
         ],
         ['header' => 'account_settings'],
         [
+            'text' => 'Zonas',
+            'route' => 'admin.zones.index',
+            'icon' => 'fas fa-map-marker-alt',
+        ],
+        [
             'text' => 'Marcas',
             'route' => 'admin.brands.index',
             'icon' => 'fas fa-copyright',
@@ -478,7 +483,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -492,7 +497,7 @@ return [
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
@@ -528,7 +533,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

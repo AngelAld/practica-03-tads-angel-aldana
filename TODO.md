@@ -73,3 +73,9 @@
   - en proceso
   - finalizado
   - cancelado
+
+
+
+- [ ] Show all zones in a map 
+- [ ] Agrupar el menu por entidades
+

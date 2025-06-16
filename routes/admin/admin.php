@@ -33,3 +33,4 @@ Route::resource('schedule_statuses', \App\Http\Controllers\SchedulestatusControl
 
 Route::resource('vehicles', \App\Http\Controllers\VehicleController::class)->names('admin.vehicles');
 
+Route::resource('zones', \App\Http\Controllers\ZoneController::class)->names('admin.zones');
