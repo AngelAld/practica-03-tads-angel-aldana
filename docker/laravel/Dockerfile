@@ -25,6 +25,10 @@ COPY . .
 # Da permisos a la carpeta de almacenamiento y caché
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-# Expone el puerto 9000 y ejecuta PHP-FPM
+# Expone el puerto 9000 y ejecuta migraciones, seeders y PHP-FPM
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD php artisan key:generate --force \
+    && php artisan migrate --force \
+    && php artisan db:seed --force \
+    && php artisan storage:link \
+    && php-fpm
