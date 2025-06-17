@@ -65,7 +65,7 @@
   - [x] EmployeeFunctionDetail (the many to many relationship)
   - [ ] VehicleDriver (the employee to vehicle many to many relationship)
   - [-] VehicleImages (Same page as Vehicle CRUD) (Aldana)
-  - [ ] Holyday (Chung)
+  - [x] Holyday (Chung)
 
 ## 14 jun
 
