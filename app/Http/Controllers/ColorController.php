@@ -8,14 +8,13 @@ use Exception;
 
 class ColorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $colors = Color::all();
-            return view('admin.colors.index', compact('colors'));
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', 'Error al obtener los colores.');
+        if ($request->ajax()) {
+            $colors = Color::select('id', 'name', 'hex_code')->get();
+            return response()->json(['data' => $colors]);
         }
+        return view('admin.colors.index');
     }
 
     public function create()

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Empleados')
+@section('title', 'Turnos de Horario')
 
 @section('content')
     <div class="p-2"></div>
@@ -8,60 +8,32 @@
         <div class="card-header">
             <button type="button" class="btn btn-primary float-right" id="btnNuevo"><i class="fas fa-folder-plus"></i>
                 Nuevo</button>
-            <h3>Empleados</h3>
+            <h3>Turnos de Horario</h3>
         </div>
         <div class="card-body">
             <table class="table table-sm table-bordered text-center" id="datatable">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>DNI</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Licencia</th>
-                        <th>Dirección</th>
-                        <th>Email</th>
-                        <th>Foto</th>
-                        <th>Teléfono</th>
-                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($employees as $employee)
+                    @foreach ($scheduleshifts as $scheduleshift)
                         <tr>
-                            <td>{{ $employee->id }}</td>
-                            <td>{{ $employee->names }}</td>
-                            <td>{{ $employee->lastnames }}</td>
-                            <td>{{ $employee->dni }}</td>
-                            <td>{{ $employee->birthday }}</td>
-                            <td>{{ $employee->license }}</td>
-                            <td>{{ $employee->address }}</td>
-                            <td>{{ $employee->email }}</td>
+                            <td>{{ $scheduleshift->id }}</td>
+                            <td>{{ $scheduleshift->name }}</td>
+                            <td>{{ $scheduleshift->description }}</td>
                             <td>
-                                @if ($employee->photo)
-                                    <img src="{{ asset('storage/' . $employee->photo) }}" alt="Foto" width="40">
-                                @else
-                                    -
-                                @endif
-                            </td>
-                            <td>{{ $employee->phone }}</td>
-                            <td>
-                                @if ($employee->status)
-                                    <span class="badge badge-success">Activo</span>
-                                @else
-                                    <span class="badge badge-danger">Inactivo</span>
-                                @endif
-                            </td>
-                            <td>
-                                <button class="btn btn-success btn-sm btnEditar" id="{{ $employee->id }}">
+                                <button class="btn btn-success btn-sm btnEditar" id="{{ $scheduleshift->id }}">
                                     <i class="fas fa-pen"></i>
                                 </button>
                             </td>
                             <td>
-                                <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST"
+                                <form action="{{ route('admin.schedule_shifts.destroy', $scheduleshift->id) }}" method="POST"
                                     class="frmDelete">
                                     @csrf
                                     @method('delete')
@@ -103,55 +75,21 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
-        const destroyRoute = "{{ route('admin.employees.destroy', ['employee' => 'EMPLOYEE_ID']) }}";
+        const destroyRoute = "{{ route('admin.schedule_shifts.destroy', ['schedule_shift' => 'SCHEDULE_SHIFT_ID']) }}";
         const csrfToken = "{{ csrf_token() }}";
     </script>
     <script>
         $(document).ready(function() {
             $('#datatable').DataTable({
-                ajax: '{{ route('admin.employees.index') }}',
+                ajax: '{{ route('admin.schedule_shifts.index') }}',
                 columns: [{
                         data: 'id'
                     },
                     {
-                        data: 'names'
+                        data: 'name'
                     },
                     {
-                        data: 'lastnames'
-                    },
-                    {
-                        data: 'dni'
-                    },
-                    {
-                        data: 'birthday'
-                    },
-                    {
-                        data: 'license'
-                    },
-                    {
-                        data: 'address'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'photo',
-                        render: function(data) {
-                            if (data) {
-                                return `<img src="/storage/${data}" alt="Foto" width="40">`;
-                            }
-                            return '-';
-                        }
-                    },
-                    {
-                        data: 'phone'
-                    },
-                    {
-                        data: 'status',
-                        render: function(data) {
-                            return data ? '<span class="badge badge-success">Activo</span>' :
-                                '<span class="badge badge-danger">Inactivo</span>';
-                        }
+                        data: 'description'
                     },
                     {
                         data: 'id',
@@ -166,8 +104,7 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            // Reemplaza EMPLOYEE_ID por el id real
-                            let actionUrl = destroyRoute.replace('EMPLOYEE_ID', data);
+                            let actionUrl = destroyRoute.replace('SCHEDULE_SHIFT_ID', data);
                             return `
                                 <form action="${actionUrl}" method="POST" class="frmDelete">
                                     <input type="hidden" name="_token" value="${csrfToken}">
@@ -188,10 +125,10 @@
             // Botón Nuevo
             $('#btnNuevo').click(function() {
                 $.ajax({
-                    url: "{{ route('admin.employees.create') }}",
+                    url: "{{ route('admin.schedule_shifts.create') }}",
                     type: "GET",
                     success: function(response) {
-                        $('#ModalLongTitle').html("Nuevo empleado");
+                        $('#ModalLongTitle').html("Nuevo turno de horario");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
@@ -213,11 +150,9 @@
                                         text: response.message,
                                         draggable: true
                                     });
-                                    // Agrega la nueva fila a la tabla
                                     $('#datatable').DataTable().ajax.reload(
                                         null, false
-                                    ); // Si usas AJAX en DataTable
-                                    // O, si no usas AJAX en DataTable, puedes hacer una petición para obtener la nueva fila y agregarla manualmente
+                                    );
                                 },
                                 error: function(xhr) {
                                     var response = xhr.responseJSON;
@@ -243,10 +178,10 @@
             $(document).on('click', '.btnEditar', function() {
                 var id = $(this).attr("id");
                 $.ajax({
-                    url: "{{ route('admin.employees.edit', 'id') }}".replace('id', id),
+                    url: "{{ route('admin.schedule_shifts.edit', 'id') }}".replace('id', id),
                     type: "GET",
                     success: function(response) {
-                        $('.modal-title').html("Editar empleado");
+                        $('.modal-title').html("Editar turno de horario");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
                         $('#ModalCenter form').on('submit', function(e) {
@@ -267,7 +202,6 @@
                                         text: response.message,
                                         draggable: true
                                     });
-                                    // Actualiza la fila editada
                                     $('#datatable').DataTable().ajax.reload(
                                         null, false);
                                 },
@@ -296,13 +230,14 @@
                 e.preventDefault();
                 var form = $(this);
                 Swal.fire({
-                    title: "Está seguro de eliminar?",
-                    text: "Este proceso no es reversible!",
+                    title: "¿Está seguro de eliminar?",
+                    text: "¡Este proceso no es reversible!",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, eliminar!"
+                    confirmButtonText: "¡Sí, eliminar!",
+                    cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
@@ -310,7 +245,6 @@
                             type: form.attr('method'),
                             data: form.serialize(),
                             success: function(response) {
-                                // Elimina la fila del DOM
                                 form.closest('tr').remove();
                                 Swal.fire({
                                     title: "Proceso exitoso",

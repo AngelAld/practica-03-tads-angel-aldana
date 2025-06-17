@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/laravel/Dockerfile
+    image: laravel-app
+    # image: carloschungu/tads-project-laravel-app:test
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    expose:
+      - "9000"
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=db_tads_docker
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=secret
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app

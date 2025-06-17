@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -329,6 +328,11 @@ return [
         ],
         ['header' => 'account_settings'],
         [
+            'text' => 'Zonas',
+            'route' => 'admin.zones.index',
+            'icon' => 'fas fa-map-marker-alt',
+        ],
+        [
             'text' => 'Marcas',
             'route' => 'admin.brands.index',
             'icon' => 'fas fa-copyright',
@@ -348,6 +352,23 @@ return [
             'route' => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-users',
         ],
+
+                [
+            'text' => 'Tipos de Vehículos',
+            'route' => 'admin.vehicle_types.index',
+            'icon' => 'fas fa-car',
+        ],
+        [
+            'text' => 'Turnos de Horario',
+            'route' => 'admin.schedule_shifts.index',
+            'icon' => 'fas fa-clock',
+        ],
+        [
+            'text' => 'Estados de Horario',
+            'route' => 'admin.schedule_statuses.index',
+            'icon' => 'fas fa-bookmark',
+        ],
+
         [
             'text' => 'Vehículos',
             'route' => 'admin.vehicles.index',
@@ -359,6 +380,7 @@ return [
             'icon' => 'fas fa-fw fa-calendar',
         ],
 
+
         [
             'text' => 'profile',
             'url' => 'admin/settings',
@@ -368,6 +390,11 @@ return [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Tipos de Contrato',
+            'route' => 'admin.contract_types.index',
+            'icon' => 'fas fa-file-contract',
         ],
         [
             'text' => 'multilevel',
@@ -461,7 +488,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -475,7 +502,7 @@ return [
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
@@ -511,7 +538,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

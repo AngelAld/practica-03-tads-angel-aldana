@@ -38,18 +38,19 @@
   - [x] schedule_status
 
 - [ ] Create CRUDs for tables:
-  - [-] vehicle_types
-  - [-] contract_types
-  - [-] schedule_shift
-  - [-] schedule_status
-  - [-] brands
-  - [-] brand_models
-  - [-] colors
-  - [ ] employees
-  - [ ] vehicles
+  - [x] vehicle_types
+  - [x] contract_types
+  - [x] schedule_shifts
+  - [x] schedule_status
+  - [x] brands
+  - [x] brand_models
+  - [x] colors
+  - [x] employees
+  - [x] vehicles
 
 - [x] New Tables
   - [x] Period (for vacations)
+
   - [x] EmployeeFunction many to many relationship
   - [x] VehicleDriver many to many relationship
   - [x] Vehicle Images
@@ -59,14 +60,84 @@
 - [x] Change employee type table name to employee function
 
 - [ ] CRUDs For New Tables
-  - [ ] Period
-  - [ ] EmployeeFunction
+  - [x] Period (Chung)
+  - [ ] EmployeeFunction (Chung)
   - [x] EmployeeFunctionDetail (the many to many relationship)
   - [ ] VehicleDriver (the employee to vehicle many to many relationship)
-  - [ ] VehicleImages (Same page as Vehicle CRUD)
-  - [ ] RefillSchedule
-  - [ ] Holyday
+  - [-] VehicleImages (Same page as Vehicle CRUD) (Aldana)
+  - [ ] Holyday (Chung)
 
+## 14 jun
+
+- [ ] Contrato (Vasquez)
+  - [ ] tipo de contrato, empleado
+  - [ ] validación de contrato temporal:fecha inicio (2 meses desde el ultimo contrato)
+  - [ ] validación de contrato temporal: fecha actual (2 meses desde el ultimo contrato)
+  - [ ] validación de contrato temporal: duración maxima (2 meses*)
+
+  - [ ] solo 1 contrato vigente a la vez
+  - [ ] Agregar atributo clave (numero de 5 digitos hasheado)
+
+- [ ] Vacaciones (Galvez)
+  - [ ] por contrato (empleado)
+  - [ ] 30 días como maximo por periodo (año)
+  - [ ] pueden estar divididas en varias vacaciones
+  - [ ] solo contrato permanente tiene vacaciones
+
+- [ ] Asistencia (Aldana)
+  - [ ] pantalla externa al adminlte
+  - [ ] dni y clave, la clave de contrato
+  - [ ] validación de hacerlo en mismo día
+
+- [ ] Programación de cargar gasolina (Vasquez y Iván)
+  - [ ] validación de cruce con programación (vehiculo y conductor) (está postergada hasta que tengamos programación)
+  - [ ] agregar hora inicio y hora fin en la tabla
+  - [ ] Cambiar relacion de employeefunctiondetail a contract
+
+- [ ] Turnos (Ivan)
+  - [ ] Agregar hora inicio y hora fin a la tabla
+
+- [ ] Programación (crear)
+  - [ ] Programación vehiculo
+  - [ ] Programación empleado
+  - [ ] Preferencia vehiculo conductor (función separada que se llama en este proceso)
+  - [ ] Validación vacaciones
+  - [ ] Advertencia feriados
+  - [ ] Cruce con otras programaciones
+
+- [ ] Función de validar cruce de programaciones de vehiculo
+  - [ ] validar cruce con programaciones
+  - [ ] validar cruce con recarga
+  - [ ] validar estado del vehiculo
+
+- [ ] Función de validar cruce de programaciones de empleado
+  - [ ] validar contrato vigente
+  - [ ] validar vacaciones
+  
+- [ ] Asistencia Vehiculo (Aldana)
+  - [ ] No es una tabla real
+  - [ ] Debe actualizar el estado de los vehicleSchedule del día a listo para iniciar o cancelado con observación
+  
+- [ ] Iniciar Programación
+  - [ ] Validación asistencia
+  - [ ] Validación del vehiculo
+  - [ ] reprogramación
+    - [ ] Programación vehiculo
+    - [ ] Programación empleado
+    - [ ] Validación vacaciones
+    - [ ] Advertencia feriados
+    - [ ] Cruce con otras programaciones
+    - [ ] Sugerencia de retenes
+
+- [ ] Programaciones en proceso
+  - [ ] Cambiar estado de programación a cancelado por alguna eventualidad
+
+- [ ] Finalizar Programación
+  - [ ] Al finalizar el turno, si no hubo eventualidad sus programaciones pasan al estado completado
+
+
+
+// Adicionales (sin ordenas)
 - [x] ScheduleStatus defined:
   - asignado
   - listo para iniciar
@@ -91,4 +162,6 @@
   - [ ] Agregar la traduccion de datatable (teniendo encuenta el firewall de la universidad)
 
 
-  
+<!-- Coorecciones del Viernes 13 de junio -->
+- [ ] Show all zones in a map
+- [ ] Agrupar el menu por entidades
