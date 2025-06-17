@@ -39,3 +39,5 @@ Route::resource('zones', \App\Http\Controllers\ZoneController::class)->names('ad
 Route::post('zones/store-coords', [\App\Http\Controllers\ZoneController::class, 'storeCoords'])->name('admin.zones.storeCoords');
 
 Route::resource('employee_functions', \App\Http\Controllers\EmployeeFunctionController::class)->names('admin.employee_functions');
+
+Route::resource('holidays', \App\Http\Controllers\HolydaysController::class)->names('admin.holidays');
