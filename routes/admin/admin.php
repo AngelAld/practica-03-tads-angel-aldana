@@ -32,6 +32,8 @@ Route::resource('contract_types', ContracttypeController::class)->names('admin.c
 Route::resource('schedule_statuses', \App\Http\Controllers\SchedulestatusController::class)->names('admin.schedule_statuses');
 
 Route::resource('vehicles', \App\Http\Controllers\VehicleController::class)->names('admin.vehicles');
+Route::resource('periods', \App\Http\Controllers\PeriodController::class)->names('admin.periods');
+
 
 Route::resource('zones', \App\Http\Controllers\ZoneController::class)->names('admin.zones');
 Route::post('zones/store-coords', [\App\Http\Controllers\ZoneController::class, 'storeCoords'])->name('admin.zones.storeCoords');

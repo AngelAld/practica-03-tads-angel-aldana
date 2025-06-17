@@ -145,5 +145,23 @@
   - finalizado
   - cancelado
 
-- [ ] Show all zones in a map 
+
+<!-- Coorecciones del la del viernes 6 de junio -->
+- [ ] Add hours for schedule shifts
+- [ ] Add assistances to employees
+- [ ] Add validations to the forms of employees and vehicles
+  - [ ] license plate
+  - [ ] document number
+  - [ ] phone number
+  - [ ] email
+  - [ ] etc.
+
+
+  - [ ] Personalizar el template de adminlte (Colores, logos, textos, etc.)
+  - [ ] Agregar la libreria para traducir jetstream a español (https://github.com/amendozaaguiar/laraveles-spanish-for-jetstream)
+  - [ ] Agregar la traduccion de datatable (teniendo encuenta el firewall de la universidad)
+
+
+<!-- Coorecciones del Viernes 13 de junio -->
+- [ ] Show all zones in a map
 - [ ] Agrupar el menu por entidades
