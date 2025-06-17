@@ -384,6 +384,11 @@ return [
             'icon' => 'fas fa-fw fa-calendar',
         ],
         [
+            'text' => 'Feriados',
+            'route' => 'admin.holidays.index',
+            'icon' => 'fas fa-fw fa-calendar',
+        ],
+        [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
