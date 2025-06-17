@@ -134,3 +134,16 @@
 
 - [ ] Finalizar Programación
   - [ ] Al finalizar el turno, si no hubo eventualidad sus programaciones pasan al estado completado
+
+
+
+// Adicionales (sin ordenas)
+- [x] ScheduleStatus defined:
+  - asignado
+  - listo para iniciar
+  - en proceso
+  - finalizado
+  - cancelado
+
+- [ ] Show all zones in a map 
+- [ ] Agrupar el menu por entidades
