@@ -215,7 +215,7 @@ return [
 
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => true,
-    'sidebar_collapse_auto_size' => false,
+    'sidebar_collapse_auto_size' => true,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
@@ -314,148 +314,115 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        // Dashboard (puedes agregar uno si no lo tienes)
+        // [
+        //     'text' => 'Dashboard',
+        //     'route' => 'admin.dashboard',
+        //     'icon' => 'fas fa-tachometer-alt',
+        // ],
+
+        // --- Vehículos ---
+        ['header' => 'Gestión de Vehículos'],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Vehículos',
+            'icon' => 'fas fa-car',
+            'route' => 'admin.vehicles.index',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'Configuración de Vehículos',
+            'icon' => 'fas fa-cogs',
+            'submenu' => [
+                [
+                    'text' => 'Tipos de Vehículos',
+                    'route' => 'admin.vehicle_types.index',
+                    'icon' => 'fas fa-truck-pickup', // Más específico para tipos
+                ],
+                [
+                    'text' => 'Marcas',
+                    'route' => 'admin.brands.index',
+                    'icon' => 'fas fa-copyright',
+                ],
+                [
+                    'text' => 'Modelos',
+                    'route' => 'admin.brandmodels.index',
+                    'icon' => 'fas fa-tags', // Icono más genérico para modelos
+                ],
+                [
+                    'text' => 'Colores de Vehículos',
+                    'route' => 'admin.colors.index',
+                    'icon' => 'fas fa-palette', // Icono para paleta de colores
+                ],
+            ],
         ],
-        ['header' => 'account_settings'],
+
+        // --- Personal / Empleados ---
+        ['header' => 'Gestión de Personal'],
+        [
+            'text' => 'Empleados',
+            'icon' => 'fas fa-users',
+            'route' => 'admin.employees.index',
+        ],
+        [
+            'text' => 'Configuración de Personal',
+            'icon' => 'fas fa-user-cog',
+            'submenu' => [
+                [
+                    'text' => 'Funciones de Empleado',
+                    'route' => 'admin.employee_functions.index',
+                    'icon' => 'fas fa-briefcase', // Icono para roles/funciones
+                ],
+                [
+                    'text' => 'Tipos de Contrato',
+                    'route' => 'admin.contract_types.index',
+                    'icon' => 'fas fa-file-signature', // Icono para contratos
+                ],
+            ],
+        ],
+
+        // --- Programacion ---
+        ['header' => 'Programacion'],
+        [
+            'text' => 'Programacion y Turnos',
+            'icon' => 'fas fa-calendar-alt',
+            'submenu' => [
+                [
+                    'text' => 'Turnos',
+                    'route' => 'admin.schedule_shifts.index',
+                    'icon' => 'fas fa-clock',
+                ],
+                [
+                    'text' => 'Estados de Programacion',
+                    'route' => 'admin.schedule_statuses.index',
+                    'icon' => 'fas fa-bookmark',
+                ],
+            ],
+        ],
+
+        // --- Calendario ---
+        ['header' => 'Calendario'],
+        [
+            'text' => 'Calendario y Fechas',
+            'icon' => 'fas fa-calendar-alt',
+            'submenu' => [
+                [
+                    'text' => 'Períodos',
+                    'route' => 'admin.periods.index',
+                    'icon' => 'fas fa-calendar',
+                ],
+                [
+                    'text' => 'Feriados',
+                    'route' => 'admin.holidays.index',
+                    'icon' => 'fas fa-calendar-day', // Icono más específico para días festivos
+                ],
+            ],
+        ],
+
+        // --- Ubicaciones / Zonas ---
+        ['header' => 'Ubicaciones / Zonas'],
         [
             'text' => 'Zonas',
             'route' => 'admin.zones.index',
             'icon' => 'fas fa-map-marker-alt',
-        ],
-        [
-            'text' => 'Marcas',
-            'route' => 'admin.brands.index',
-            'icon' => 'fas fa-copyright',
-        ],
-        [
-            'text' => 'Modelos',
-            'route' => 'admin.brandmodels.index',
-            'icon' => 'fas fa-fw fa-tags',
-        ],
-        [
-            'text' => 'Colores de Vehículos',
-            'route' => 'admin.colors.index',
-            'icon' => 'fas fa-fw fa-tags',
-        ],
-        [
-            'text' => 'Funciones de Empleado',
-            'route' => 'admin.employee_functions.index',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Empleados',
-            'route' => 'admin.employees.index',
-            'icon' => 'fas fa-fw fa-users',
-        ],
-        [
-            'text' => 'Tipos de Vehículos',
-            'route' => 'admin.vehicle_types.index',
-            'icon' => 'fas fa-car',
-        ],
-        [
-            'text' => 'Turnos de Horario',
-            'route' => 'admin.schedule_shifts.index',
-            'icon' => 'fas fa-clock',
-        ],
-        [
-            'text' => 'Estados de Horario',
-            'route' => 'admin.schedule_statuses.index',
-            'icon' => 'fas fa-bookmark',
-        ],
-
-        [
-            'text' => 'Vehículos',
-            'route' => 'admin.vehicles.index',
-            'icon' => 'fas fa-fw fa-car',
-        ],
-        [
-            'text' => 'Periodos',
-            'route' => 'admin.periods.index',
-            'icon' => 'fas fa-fw fa-calendar',
-        ],
-        [
-            'text' => 'Feriados',
-            'route' => 'admin.holidays.index',
-            'icon' => 'fas fa-fw fa-calendar',
-        ],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'Tipos de Contrato',
-            'route' => 'admin.contract_types.index',
-            'icon' => 'fas fa-file-contract',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
         ],
     ],
 
