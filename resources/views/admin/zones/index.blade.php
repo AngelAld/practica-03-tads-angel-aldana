@@ -78,6 +78,9 @@
 
 @section('js')
     <script>
+        var showUrl = "{{ route('admin.zones.show', ['zone' => 'ZONE_ID']) }}";
+        var destroyRoute = "{{ route('admin.zones.destroy', ['zone' => 'ZONE_ID']) }}";
+
         $(document).ready(function() {
             $('#datatable').DataTable({
                 language: {
@@ -104,7 +107,8 @@
                         "searchable": false,
                         "width": "4%",
                         "render": function(data, type, row) {
-                            return '<a href="{{ route('admin.zones.show', $zone->id) }}"><button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button></a>';
+                            var url = showUrl.replace('ZONE_ID', data);
+                            return '<a href="' + url + '"><button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></button></a>';
                         }
                     },
                     {
@@ -118,15 +122,23 @@
                         }
                     },
                     {
-                        "data": "id",
-                        "orderable": false,
-                        "searchable": false,
-                        "width": "4%",
-                        "render": function(data, type, row) {
-                            return '<button class="btn btn-danger btn-sm btnDelete" id="' + data +
-                                '"><i class="fas fa-trash"></i></button>';
+                        data: 'id',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data) {
+                            // Reemplaza ZONE_ID por el id real
+                            let actionUrl = destroyRoute.replace('ZONE_ID', data);
+                            return `
+                                <form action="${actionUrl}" method="POST" class="frmDelete">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            `;
                         }
-                    },
+                    }
                 ]
             });
         })
@@ -296,8 +308,3 @@
         </script>
     @endif
 @endsection
-
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop

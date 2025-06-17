@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\District;
 use App\Models\Zone;
+use App\Models\Zonecoords;
 use Illuminate\Http\Request;
 
 class ZoneController extends Controller
@@ -28,9 +29,27 @@ class ZoneController extends Controller
 
     public function show($id)
     {
-        $districts = District::pluck('name', 'id');
-        $zone = Zone::findOrFail($id);
-        return view('admin.zones.show', compact('districts', 'zone'));
+        $zone = Zone::with('district', 'zone_coordinates')->findOrFail($id);
+        return view('admin.zones.show', compact('zone'));
+    }
+
+    // Agregar varias coordenadas a una zona
+    public function storeCoords(Request $request)
+    {
+        $request->validate([
+            'zone_id' => 'required|exists:zones,id',
+            'coords' => 'required|array',
+            'coords.*.lat' => 'required|numeric',
+            'coords.*.lng' => 'required|numeric',
+        ]);
+
+        try {
+            $zone = Zone::findOrFail($request->zone_id);
+            $zone->updateCoordinates($request->coords);
+            return response()->json(['success' => true, 'message' => 'Coordenadas actualizadas correctamente']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error al agregar coordenadas: ' . $e->getMessage()], 500);
+        }
     }
 
     public function store(Request $request)

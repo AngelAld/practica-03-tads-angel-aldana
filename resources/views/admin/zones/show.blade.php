@@ -5,44 +5,51 @@
 @section('content')
     <div class="p-2"></div>
     <div class="card">
-        <div class="card-header">
-            <h3>Detalle de la Zona</h3>
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="fas fa-info-circle mr-2"></i>Detalles de la Zona</h4>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-12 card">
-                    <div class="row card-body">
-                        <div class="col-md-6">
-                            <p><strong>Nombre:</strong> {{ $zone->name }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Descripción:</strong> {{ $zone->description }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Carga Requerida:</strong> {{ $zone->load_requirement }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Distrito:</strong> {{ $zone->district->name }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card h-[90]">
-                        <div class="card-header">
-                            <h3>Coordenadas</h3>
-                        </div>
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card shadow-sm">
                         <div class="card-body">
-                            <div id="coords-list">
-                                <!-- Aquí se renderiza la lista de coordenadas vía JS -->
+                            <div class="row g-3">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt fa-lg text-primary mr-2"></i>
+                                        <span class="fw-bold me-2 mr-1">Nombre: </span> <span>{{ $zone->name }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-align-left fa-lg text-primary mr-2"></i>
+                                        <span class="fw-bold me-2 mr-1">Descripción: </span>
+                                        <span>{{ $zone->description }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-bolt fa-lg text-primary mr-2"></i>
+                                        <span class="fw-bold me-2 mr-1">Carga Requerida: </span>
+                                        <span>{{ $zone->load_requirement }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-city fa-lg text-primary mr-2"></i>
+                                        <span class="fw-bold me-2 mr-1">Distrito: </span>
+                                        <span>{{ $zone->district->name }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+
+                <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-header">
-                            <h3>Mapa</h3>
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"> <i class="fas fa-map-marker-alt mr-2"></i>Mapa</h4>
                         </div>
                         <div class="card-body">
                             <div id="map" style="width: 100%; height: 400px;"></div>
@@ -50,38 +57,69 @@
                     </div>
                 </div>
 
-                <div class="cards">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar Coordenadas</button>
+                <div class="col-lg-4">
+                    <div class="card h-[90]">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-map-marker-alt mr-2"></i>Coordenadas</h4>
+                        </div>
+                        <div class="card-body coords-scroll">
+                            <style>
+                                .coords-scroll {
+                                    height: 440px;
+                                    overflow-y: auto;
+                                    transition: box-shadow 0.2s;
+                                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                                }
+                            </style>
+                            <div id="coords-list">
+                                <!-- Aquí se renderiza la lista de coordenadas vía JS -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar Coordenadas</button>
         </div>
     </div>
 @stop
 
 @section('js')
+    @php
+        $coords = $zone->zone_coordinates->map(function($coord) {
+            return ['lat' => (float)$coord->latitude, 'lng' => (float)$coord->longitude];
+        })->values();
+    @endphp
     <script>
         let map;
         let drawingManager;
         let polygon = null;
-        let polygonCoords = [];
+        let polygonCoords = @json($coords);
 
         // Si tienes coordenadas existentes, pásalas desde PHP (sino, será null o [])
-        const initialPolygonCoords = @json($vertice ?? []);
+        const initialPolygonCoords = @json($coords);
 
-        // Renderiza la lista de coordenadas con botones de eliminar
+        // Markers para identificar los vértices
+        let vertexMarkers = [];
+
+        // Renderiza la lista de coordenadas con botones de eliminar y agrega markers numerados
         function renderCoordsList() {
             const listDiv = document.getElementById('coords-list');
             if (!listDiv) return;
             if (polygonCoords.length === 0) {
                 listDiv.innerHTML = '<p>No hay coordenadas.</p>';
+                clearVertexMarkers();
                 return;
             }
             let html = '';
             polygonCoords.forEach((coord, idx) => {
                 html += `<div class='card card-body mb-2 p-2'>
                     <div class='row align-items-center'>
-                        <div class='col-5'><strong>Lat:</strong> ${coord.lat.toFixed(6)}</div>
-                        <div class='col-5'><strong>Lng:</strong> ${coord.lng.toFixed(6)}</div>
+                        <div class='col-2 text-center'><span class='badge bg-primary' style='font-size:1rem;'>${idx+1}</span></div>
+                        <div class='col-4'><strong>Latitud:</strong> ${coord.lat.toFixed(6)}</div>
+                        <div class='col-4'><strong>Longitud:</strong> ${coord.lng.toFixed(6)}</div>
                         <div class='col-2 text-end'>
                             <button class='btn btn-danger btn-sm' onclick='removeCoord(${idx})' title='Eliminar coordenada'>&times;</button>
                         </div>
@@ -89,6 +127,44 @@
                 </div>`;
             });
             listDiv.innerHTML = html;
+            updateVertexMarkers();
+        }
+
+        // Borra todos los markers de vértices
+        function clearVertexMarkers() {
+            vertexMarkers.forEach(marker => marker.setMap(null));
+            vertexMarkers = [];
+        }
+
+        // Crea/actualiza los markers numerados para cada vértice
+        function updateVertexMarkers() {
+            clearVertexMarkers();
+            if (!map || !polygonCoords || polygonCoords.length === 0) return;
+            polygonCoords.forEach((coord, idx) => {
+                const marker = new google.maps.Marker({
+                    position: coord,
+                    map: map,
+                    label: {
+                        text: String(idx + 1),
+                        color: 'white',
+                        fontWeight: 'bold',
+                        fontSize: '14px',
+                        backgroundColor: '#007bff',
+                    },
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10,
+                        fillColor: '#007bff',
+                        fillOpacity: 1,
+                        strokeWeight: 2,
+                        strokeColor: 'white',
+                        anchor: new google.maps.Point(0, 1.5), // Mueve el círculo arriba de la coordenada
+                        // labelOrigin: new google.maps.Point(0, -1) // Mueve el label aún más arriba
+                    },
+                    zIndex: 999,
+                });
+                vertexMarkers.push(marker);
+            });
         }
 
         // Elimina una coordenada y actualiza el polígono
@@ -112,11 +188,12 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    polygonCoords.splice(idx, 1);
                     if (polygon) {
-                        polygon.setPath(polygonCoords);
-                        updatePolygonCoords(polygon); // Sincroniza lista y array con el polígono real
+                        // Elimina el punto directamente del path del polígono
+                        polygon.getPath().removeAt(idx);
+                        // Los listeners ya actualizan la lista y el array
                     } else {
+                        polygonCoords.splice(idx, 1);
                         renderCoordsList();
                     }
                     Swal.fire({
@@ -229,12 +306,47 @@
                         cancelButtonText: 'Cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Aquí puedes hacer el envío al backend si lo deseas
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Guardado!',
-                                text: 'Las coordenadas han sido guardadas.'
-                            });
+                            fetch('{{ route('admin.zones.storeCoords') }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]').getAttribute(
+                                            'content')
+                                    },
+                                    body: JSON.stringify({
+                                        zone_id: {{ $zone->id }},
+                                        coords: polygonCoords
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success || data.status === 'success') {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: '¡Guardado!',
+                                            text: data.message ||
+                                                'Las coordenadas han sido guardadas.'
+                                        }).then(() => {
+                                            // retroceder a la lista de zonas
+                                            window.location.href = "{{ route('admin.zones.index') }}";
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Error',
+                                            text: data.message ||
+                                                'Ocurrió un error al guardar las coordenadas.'
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Error al guardar las coordenadas.'
+                                    });
+                                });
                         }
                     });
                 });
