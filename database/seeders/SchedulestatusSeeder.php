@@ -14,8 +14,14 @@ class SchedulestatusSeeder extends Seeder
     {
         DB::table('schedulestatuses')->insert([
             [
-                'name' => 'pendiente',
-                'description' => 'El horario está pendiente de aprobación o ejecución',
+                'name' => 'asignado',
+                'description' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'listo para iniciar',
+                'description' => '',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
