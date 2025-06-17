@@ -61,7 +61,7 @@
 
 - [ ] CRUDs For New Tables
   - [x] Period (Chung)
-  - [ ] EmployeeFunction (Chung)
+  - [x] EmployeeFunction (Chung)
   - [x] EmployeeFunctionDetail (the many to many relationship)
   - [ ] VehicleDriver (the employee to vehicle many to many relationship)
   - [-] VehicleImages (Same page as Vehicle CRUD) (Aldana)

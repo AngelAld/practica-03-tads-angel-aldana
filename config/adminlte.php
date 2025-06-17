@@ -348,12 +348,16 @@ return [
             'icon' => 'fas fa-fw fa-tags',
         ],
         [
+            'text' => 'Funciones de Empleado',
+            'route' => 'admin.employee_functions.index',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
             'text' => 'Empleados',
             'route' => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-users',
         ],
-
-                [
+        [
             'text' => 'Tipos de Vehículos',
             'route' => 'admin.vehicle_types.index',
             'icon' => 'fas fa-car',
@@ -379,8 +383,6 @@ return [
             'route' => 'admin.periods.index',
             'icon' => 'fas fa-fw fa-calendar',
         ],
-
-
         [
             'text' => 'profile',
             'url' => 'admin/settings',
