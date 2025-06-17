@@ -58,246 +58,187 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLongTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    {{-- Aquí se carga el formulario --}}
-                </div>
+                <div class="modal-body"></div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js')
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://kit.fontawesome.com/3e4b4b4b4b.js" crossorigin="anonymous"></script> --}}
+<script>
+    // Rutas base para reemplazo dinámico
+    var editRoute = "{{ route('admin.periods.edit', ['period' => 'PERIOD_ID']) }}";
+    var destroyRoute = "{{ route('admin.periods.destroy', ['period' => 'PERIOD_ID']) }}";
+    var createRoute = "{{ route('admin.periods.create') }}";
+    var indexRoute = "{{ route('admin.periods.index') }}";
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-    <script>
-        const destroyRoute = "{{ route('admin.periods.destroy', ['period' => 'PERIOD_ID']) }}";
-        const csrfToken = "{{ csrf_token() }}";
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#datatable').DataTable({
-                ajax: '{{ route('admin.periods.index') }}',
-                responsive: true,
-                autoWidth: false,
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'status',
-                        render: function(data) {
-                            return data ? '<span class="badge badge-success">Activo</span>' :
-                                '<span class="badge badge-danger">Inactivo</span>';
-                        }
-                    },
-                    {
-                        data: 'id',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data) {
-                            return `<button class="btn btn-success btn-sm btnEditar" id="${data}"><i class="fas fa-pen"></i></button>`;
-                        }
-                    },
-                    {
-                        data: 'id',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data) {
-                            // Reemplaza PERIOD_ID por el id real
-                            let actionUrl = destroyRoute.replace('PERIOD_ID', data);
-                            return `
-                                <form action="${actionUrl}" method="POST" class="frmDelete">
-                                    <input type="hidden" name="_token" value="${csrfToken}">
-                                    <input type="hidden" name="_method" value="delete">
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            `;
-                        }
-                    }
-                ],
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json'
+    // Inicializa DataTable
+    let table = $('#datatable').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.3.2/i18n/es-ES.json'
+        },
+        responsive: true,
+        autoWidth: false,
+        ajax: indexRoute,
+        columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { 
+                data: 'status',
+                render: function(data) {
+                    return data
+                        ? '<span class="badge badge-success">Activo</span>'
+                        : '<span class="badge badge-danger">Inactivo</span>';
                 }
-            });
+            },
+            {
+                data: 'id',
+                orderable: false,
+                searchable: false,
+                render: function(data) {
+                    let url = editRoute.replace('PERIOD_ID', data);
+                    return `<button class="btn btn-success btn-sm btnEditar" data-id="${data}" data-url="${url}">
+                                <i class="fas fa-pen"></i>
+                            </button>`;
+                }
+            },
+            {
+                data: 'id',
+                orderable: false,
+                searchable: false,
+                render: function(data) {
+                    let url = destroyRoute.replace('PERIOD_ID', data);
+                    return `<form action="${url}" method="POST" class="frmDelete" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>`;
+                }
+            }
+        ]
+    });
 
-            // Botón Nuevo
-            $('#btnNuevo').click(function() {
-                $.ajax({
-                    url: "{{ route('admin.periods.create') }}",
-                    type: "GET",
-                    success: function(response) {
-                        $('#ModalLongTitle').html("Nuevo periodo");
-                        $('#ModalCenter .modal-body').html(response);
-                        $('#ModalCenter').modal('show');
-                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
-                            e) {
-                            e.preventDefault();
-                            var form = $(this);
-                            var formdata = new FormData(this);
-                            $.ajax({
-                                url: form.attr('action'),
-                                type: form.attr('method'),
-                                data: formdata,
-                                processData: false,
-                                contentType: false,
-                                success: function(response) {
-                                    $('#ModalCenter').modal('hide');
-                                    Swal.fire({
-                                        title: "Proceso exitoso",
-                                        icon: "success",
-                                        text: response.message,
-                                        draggable: true
-                                    });
-                                    // Agrega la nueva fila a la tabla
-                                    $('#datatable').DataTable().ajax.reload(
-                                        null, false
-                                    ); // Si usas AJAX en DataTable
-                                    // O, si no usas AJAX en DataTable, puedes hacer una petición para obtener la nueva fila y agregarla manualmente
-                                },
-                                error: function(xhr) {
-                                    var response = xhr.responseJSON;
-                                    Swal.fire({
-                                        title: "Error",
-                                        icon: "error",
-                                        text: response && response
-                                            .message ? response
-                                            .message : (xhr
-                                                .responseText ? xhr
-                                                .responseText :
-                                                "Ocurrió un error"),
-                                        draggable: true
-                                    });
-                                }
-                            });
-                        });
-                    }
-                });
-            });
+    // Refresca la tabla
+    function refreshTable() {
+        table.ajax.reload(null, false);
+    }
 
-            // Botón Editar
-            $(document).on('click', '.btnEditar', function() {
-                var id = $(this).attr("id");
-                $.ajax({
-                    url: "{{ route('admin.periods.edit', 'id') }}".replace('id', id),
-                    type: "GET",
-                    success: function(response) {
-                        $('.modal-title').html("Editar periodo");
-                        $('#ModalCenter .modal-body').html(response);
-                        $('#ModalCenter').modal('show');
-                        // Solución: quitar handlers anteriores antes de agregar uno nuevo
-                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
-                            e) {
-                            e.preventDefault();
-                            var form = $(this);
-                            var formdata = new FormData(this);
-                            $.ajax({
-                                url: form.attr('action'),
-                                type: form.attr('method'),
-                                data: formdata,
-                                processData: false,
-                                contentType: false,
-                                success: function(response) {
-                                    $('#ModalCenter').modal('hide');
-                                    Swal.fire({
-                                        title: "Proceso exitoso",
-                                        icon: "success",
-                                        text: response.message,
-                                        draggable: true
-                                    });
-                                    // Actualiza la fila editada
-                                    $('#datatable').DataTable().ajax.reload(
-                                        null, false);
-                                },
-                                error: function(xhr) {
-                                    var response = xhr.responseJSON;
-                                    Swal.fire({
-                                        title: "Error",
-                                        icon: "error",
-                                        text: response && response
-                                            .message ? response
-                                            .message : (xhr
-                                                .responseText ? xhr
-                                                .responseText :
-                                                "Ocurrió un error"),
-                                        draggable: true
-                                    });
-                                }
-                            });
-                        });
-                    }
-                });
-            });
+    // Nuevo
+    $('#btnNuevo').click(function() {
+        $.get(createRoute, function(response) {
+            $('.modal-title').html("Nuevo Periodo");
+            $('#ModalCenter .modal-body').html(response);
+            $('#ModalCenter').modal('show');
 
-            // Botón Eliminar
-            $(document).on('submit', '.frmDelete', function(e) {
+            $('#ModalCenter form').on('submit', function(e) {
                 e.preventDefault();
                 var form = $(this);
-                Swal.fire({
-                    title: "Está seguro de eliminar?",
-                    text: "Este proceso no es reversible!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, eliminar!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: form.attr('action'),
-                            type: form.attr('method'),
-                            data: form.serialize(),
-                            success: function(response) {
-                                // Elimina la fila del DOM
-                                form.closest('tr').remove();
-                                Swal.fire({
-                                    title: "Proceso exitoso",
-                                    icon: "success",
-                                    text: response.message,
-                                    draggable: true
-                                });
-                            },
-                            error: function(xhr) {
-                                var response = xhr.responseJSON;
-                                Swal.fire({
-                                    title: "Error",
-                                    icon: "error",
-                                    text: response && response.message ?
-                                        response.message : (xhr.responseText ?
-                                            xhr.responseText :
-                                            "Ocurrió un error"),
-                                    draggable: true
-                                });
-                            }
+                var formdata = new FormData(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#ModalCenter').modal('hide');
+                        refreshTable();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: response.message
                         });
+                    },
+                    error: function(xhr) {
+                        let msg = xhr.responseJSON?.message || 'Error al guardar';
+                        Swal.fire({ icon: 'error', title: 'Error', text: msg });
                     }
                 });
             });
         });
-    </script>
+    });
+
+    // Editar
+    $('#datatable').on('click', '.btnEditar', function() {
+        var url = $(this).data('url');
+        $.get(url, function(response) {
+            $('.modal-title').html("Editar Periodo");
+            $('#ModalCenter .modal-body').html(response);
+            $('#ModalCenter').modal('show');
+
+            $('#ModalCenter form').on('submit', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var formdata = new FormData(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#ModalCenter').modal('hide');
+                        refreshTable();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: response.message
+                        });
+                    },
+                    error: function(xhr) {
+                        let msg = xhr.responseJSON?.message || 'Error al actualizar';
+                        Swal.fire({ icon: 'error', title: 'Error', text: msg });
+                    }
+                });
+            });
+        });
+    });
+
+    // Eliminar con confirmación
+    $('#datatable').on('submit', '.frmDelete', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        Swal.fire({
+            title: '¿Estás seguro de eliminar este periodo?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#aaa',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        refreshTable();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Eliminado',
+                            text: response.message || 'Periodo eliminado correctamente.'
+                        });
+                    },
+                    error: function(xhr) {
+                        let msg = xhr.responseJSON?.message || 'Error al eliminar';
+                        Swal.fire({ icon: 'error', title: 'Error', text: msg });
+                    }
+                });
+            }
+        });
+    });
+</script>
 @endsection

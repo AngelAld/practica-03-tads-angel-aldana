@@ -9,17 +9,18 @@ class PeriodController extends Controller
 {
     public function index(Request $request)
     {
-        $periods = Period::all();
-        // Si la petición es AJAX, retornar JSON
+        // DataTables espera un array 'data' con los registros
         if ($request->ajax()) {
+            $periods = Period::all();
             return response()->json(['data' => $periods]);
         }
-        // Para la vista
+        $periods = Period::all();
         return view('admin.periods.index', compact('periods'));
     }
 
     public function create()
     {
+        // Devuelve el formulario de creación (puede ser un partial/modal)
         return view('admin.periods.create');
     }
 
@@ -39,15 +40,11 @@ class PeriodController extends Controller
         }
     }
 
-    // public function show($id)
-    // {
-    //     try {
-    //         $period = Period::findOrFail($id);
-    //         return response()->json(['success' => true, 'period' => $period]);
-    //     } catch (\Exception $e) {
-    //         return response()->json(['success' => false, 'message' => 'Periodo no encontrado'], 404);
-    //     }
-    // }
+    public function edit($id)
+    {
+        $period = Period::findOrFail($id);
+        return view('admin.periods.edit', compact('period'));
+    }
 
     public function update(Request $request, $id)
     {
@@ -58,7 +55,7 @@ class PeriodController extends Controller
             ]);
             $period = Period::findOrFail($id);
             $period->update($validated);
-            return response()->json(['success' => true, 'message' => 'Periodo actualizado correctamente', 'data' => $period]);
+            return response()->json(['success' => true, 'message' => 'Periodo actualizado correctamente', 'period' => $period]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['success' => false, 'message' => 'Datos inválidos', 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
