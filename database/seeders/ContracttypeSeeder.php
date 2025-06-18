@@ -12,7 +12,7 @@ class ContracttypeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('contracttypes')->insert([
+        DB::table('contracttypes')->upsert([
             [
                 'name' => 'nombrado',
                 'description' => 'Contrato de nombramiento estable',
@@ -31,6 +31,8 @@ class ContracttypeSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+        ], [
+            'name'
         ]);
     }
 }

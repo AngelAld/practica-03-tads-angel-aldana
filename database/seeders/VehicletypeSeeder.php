@@ -12,7 +12,7 @@ class VehicletypeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('vehicletypes')->insert([
+        DB::table('vehicletypes')->upsert([
             [
                 'name' => 'volquete',
                 'description' => 'Vehículo utilizado para transportar residuos en grandes cantidades',
@@ -25,6 +25,6 @@ class VehicletypeSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ], ['name']);
     }
 }

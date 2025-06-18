@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Period;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PeriodSeeder extends Seeder
 {
@@ -14,8 +15,8 @@ class PeriodSeeder extends Seeder
     public function run(): void
     {
         //
-        Period::create([
-            'name' => '2025',
-        ]);
+        DB::table('periods')->upsert([
+            ['name' => '2025'],
+        ], ['name']);
     }
 }

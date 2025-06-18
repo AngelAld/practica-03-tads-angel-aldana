@@ -12,7 +12,7 @@ class SchedulestatusSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('schedulestatuses')->insert([
+        DB::table('schedulestatuses')->upsert([
             [
                 'name' => 'asignado',
                 'description' => '',
@@ -43,6 +43,6 @@ class SchedulestatusSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ], ['name']);
     }
 }

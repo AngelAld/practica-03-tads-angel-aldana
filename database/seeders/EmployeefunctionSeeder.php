@@ -12,7 +12,7 @@ class EmployeefunctionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('employeefunctions')->insert([
+        DB::table('employeefunctions')->upsert([
             [
                 'name' => 'conductor',
                 'description' => 'Empleado encargado de conducir vehículos',
@@ -25,6 +25,6 @@ class EmployeefunctionSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ], ['name']);
     }
 }

@@ -12,9 +12,11 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Department::create([
+        Department::upsert([
             'name' => 'Lambayeque',
             'code' => '140000',
+        ], [
+            'code', 'name'
         ]);
     }
 }

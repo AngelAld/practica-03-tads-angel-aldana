@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Department;
 use App\Models\Province;
+use Illuminate\Support\Facades\DB;
 
 class ProvinceSeeder extends Seeder
 {
@@ -15,10 +16,10 @@ class ProvinceSeeder extends Seeder
     {
         $department = Department::where('code', '140000')->first();
 
-        Province::create([
+        DB::table('provinces')->upsert([
             'name' => 'Chiclayo',
             'code' => '140100',
             'department_id' => $department->id,
-        ]);
+        ], ['code'], ['name']);
     }
 }

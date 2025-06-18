@@ -15,10 +15,12 @@ class DistrictSeeder extends Seeder
     {
         $province = Province::where('code', '140100')->first();
 
-        District::create([
-            'name' => 'José Leonardo Ortiz',
-            'code' => '140110',
-            'province_id' => $province->id,
-        ]);
+        District::updateOrCreate(
+            ['code' => '140110'],
+            [
+                'name' => 'José Leonardo Ortiz',
+                'province_id' => $province->id,
+            ]
+        );
     }
 }
