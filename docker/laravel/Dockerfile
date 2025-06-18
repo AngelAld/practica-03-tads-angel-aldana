@@ -27,8 +27,9 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Expone el puerto 9000 y ejecuta migraciones, seeders y PHP-FPM
 EXPOSE 9000
-CMD php artisan key:generate --force \
-    && php artisan migrate --force \
-    && php artisan db:seed --force \
+CMD php artisan key:generate \
+    && php artisan migrate \
+    && php artisan db:seed \
     && php artisan storage:link \
+    && php artisan livewire:publish --assets \
     && php-fpm
