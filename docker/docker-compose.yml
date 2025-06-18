@@ -1,6 +1,6 @@
 services:
   app:
-    image: carloschungu/tads-project-laravel-app:latest
+    image: carloschungu/tads-project-laravel-app:amd64
     container_name: laravel-app
     restart: unless-stopped
     # working_dir: /var/www
