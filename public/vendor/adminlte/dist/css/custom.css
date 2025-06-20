@@ -1,0 +1,42 @@
+/* custom.css */
+.main-sidebar {
+    background-color: #002F59 !important; /* Cambia #34495e por el color que desees */
+}
+
+.main-sidebar .nav-link {
+    color: #ecf0f1 !important; /* Cambia #ecf0f1 por el color del texto que desees */
+}
+
+.main-sidebar .nav-link.active {
+    background-color: #16a085 !important; /* Cambia #2980b9 por el color de fondo activo que desees */
+    color: #ffffff !important; /* Cambia #ffffff por el color del texto activo que desees */
+}
+
+/* custom.css */
+.main-footer {
+    background-color: #002F59 !important; /* Cambia #2c3e50 por el color de fondo que desees */
+    color: #ecf0f1 !important; /* Cambia #ecf0f1 por el color del texto que desees */
+}
+
+.main-footer a {
+    color: #16a085 !important; /* Cambia #ecdbff por el color de los enlaces que desees */
+}
+
+.main-footer a:hover {
+    color: #ffffff !important; /* Cambia #ffffff por el color de los enlaces al pasar el ratón */
+}
+
+/* custom.css */
+.main-header {
+    background-color: #002F59 !important; /* Cambia #1abc9c por el color de fondo que desees */
+    color: #ffffff !important; /* Cambia #ffffff por el color del texto que desees */
+}
+
+.main-header .navbar-nav .nav-link {
+    color: #ffffff !important; /* Cambia #ffffff por el color de los enlaces */
+}
+
+.main-header .navbar-nav .nav-link:hover {
+    background-color: #16a085 !important; /* Cambia #16a085 por el color al pasar el ratón */
+    color: #ffffff !important; /* Cambia #ffffff por el color del texto al pasar el ratón */
+}

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Municipalidad de José Leonardo Ortiz',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -62,12 +62,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => 'MUNICIPALIDAD<br><b>José Leonardo Ortiz</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/escudo-jlo.png',
+    'logo_img_class' => 'brand-image no-img-circle h-full elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Escudo Municipalidad de José Leonardo Ortiz',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,8 +85,8 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
+            'path' => 'vendor/adminlte/dist/img/escudo-jlo.png',
+            'alt' => 'Escudo Municipalidad de José Leonardo Ortiz',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -110,13 +110,13 @@ return [
 
     'preloader' => [
         'enabled' => true,
-        'mode' => 'fullscreen',
+        'mode' => 'cwrapper',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => 'vendor/adminlte/dist/img/escudo-jlo.png',
+            'alt' => 'Escudo Municipalidad de José Leonardo Ortiz',
             'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'width' => 100,
+            'height' => 136,
         ],
     ],
 
