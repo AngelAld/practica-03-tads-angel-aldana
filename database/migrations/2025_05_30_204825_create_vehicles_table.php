@@ -31,6 +31,9 @@ return new class extends Migration
             $table->foreignId('brand_id')
                 ->constrained('brands')
                 ->onDelete('restrict');
+            $table->foreignId('type_id')
+                ->constrained('vehicle_types')
+                ->onDelete('restrict');
 
 
             $table->timestamps();
