@@ -32,7 +32,7 @@ return new class extends Migration
                 ->constrained('brands')
                 ->onDelete('restrict');
             $table->foreignId('type_id')
-                ->constrained('vehicle_types')
+                ->constrained('vehicletypes')
                 ->onDelete('restrict');
 
 
