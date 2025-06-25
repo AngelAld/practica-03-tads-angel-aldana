@@ -27,6 +27,7 @@
                         <th>Modelo</th>
                         <th>Color</th>
                         <th>Marca</th>
+                        <th>Tipo</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -50,9 +51,10 @@
                                     <span class="badge badge-danger">Inactivo</span>
                                 @endif
                             </td>
-                            <td>{{ $vehicle->model_id }}</td>
-                            <td>{{ $vehicle->color_id }}</td>
-                            <td>{{ $vehicle->brand_id }}</td>
+                            <td>{{ $vehicle->model?->name }}</td>
+                            <td>{{ $vehicle->color?->name }}</td>
+                            <td>{{ $vehicle->brand?->name }}</td>
+                            <td>{{ $vehicle->type?->name }}</td>
                             <td>
                                 <button class="btn btn-success btn-sm btnEditar" id="{{ $vehicle->id }}">
                                     <i class="fas fa-pen"></i>
@@ -109,47 +111,60 @@
             $('#datatable').DataTable({
                 ajax: '{{ route('admin.vehicles.index') }}',
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                        title: 'ID'
                     },
                     {
-                        data: 'name'
+                        data: 'name',
+                        title: 'Nombre'
                     },
                     {
-                        data: 'code'
+                        data: 'code',
+                        title: 'Código'
                     },
                     {
-                        data: 'plate'
+                        data: 'plate',
+                        title: 'Placa'
                     },
                     {
-                        data: 'year'
+                        data: 'year',
+                        title: 'Año'
                     },
                     {
-                        data: 'load_capacity'
+                        data: 'load_capacity',
+                        title: 'Cap. Carga'
                     },
                     {
-                        data: 'description'
+                        data: 'description',
+                        title: 'Descripción'
                     },
                     {
-                        data: 'fuel_capacity'
+                        data: 'fuel_capacity',
+                        title: 'Cap. Combustible'
                     },
                     {
-                        data: 'ocuppants'
+                        data: 'ocuppants',
+                        title: 'Ocupantes'
                     },
                     {
                         data: 'status',
-                        render: function(data) {
-                            return data ? '<span class="badge badge-success">Activo</span>' :
-                                '<span class="badge badge-danger">Inactivo</span>';
-                        }
+                        title: 'Estado'
                     },
                     {
-                        data: 'model_id'
+                        data: 'model',
+                        title: 'Modelo'
                     },
                     {
-                        data: 'color_id'
+                        data: 'color',
+                        title: 'Color'
                     },
                     {
-                        data: 'brand_id'
+                        data: 'brand',
+                        title: 'Marca'
+                    },
+                    {
+                        data: 'type',
+                        title: 'Tipo'
                     },
                     {
                         data: 'id',
@@ -236,6 +251,7 @@
             // Botón Editar
             $(document).on('click', '.btnEditar', function() {
                 var id = $(this).attr("id");
+
                 $.ajax({
                     url: "{{ route('admin.vehicles.edit', 'id') }}".replace('id', id),
                     type: "GET",
@@ -243,6 +259,25 @@
                         $('.modal-title').html("Editar vehículo");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
+                        // Espera a que el script del formulario esté cargado
+                        setTimeout(function() {
+                            // Solo continúa si renderGallery ya está disponible
+                            if (typeof window.renderGallery === 'function') {
+                                let vehicleId = window.vehicleId;
+                                if (vehicleId) {
+                                    $.get(`/admin/vehicles/${vehicleId}/images`,
+                                        function(images) {
+                                            window.existingImages = images;
+                                            window.portadaExistingId = images.find(
+                                                    img => img.is_profile)?.id ||
+                                                null;
+                                            window.imagesArray = [];
+                                            window.portadaIndex = null;
+                                            window.renderGallery();
+                                        });
+                                }
+                            }
+                        }, 300);
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
                             e) {
                             e.preventDefault();

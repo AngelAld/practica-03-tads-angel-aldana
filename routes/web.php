@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\VehicleimagesController;
 use Illuminate\Support\Facades\Route;
-require __DIR__.'/admin/admin.php';
+
+require __DIR__ . '/admin/admin.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +31,11 @@ Route::middleware([
     Route::get('/admin', function () {
         return view('admin.index');
     });
+});
+
+Route::prefix('admin/vehicles')->group(function () {
+    Route::get('{vehicle}/images', [VehicleimagesController::class, 'index']);
+    Route::post('{vehicle}/images', [VehicleimagesController::class, 'store']);
+    Route::delete('images/{image}', [VehicleimagesController::class, 'destroy']);
+    Route::post('images/{image}/set-profile', [VehicleimagesController::class, 'setProfile']);
 });

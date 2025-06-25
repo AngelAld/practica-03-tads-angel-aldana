@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicleimages extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'vehicle_id',
+        'image_path',
+        'is_profile',
+        'status'
+    ];
 }
