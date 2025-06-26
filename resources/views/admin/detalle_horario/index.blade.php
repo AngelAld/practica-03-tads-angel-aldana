@@ -15,9 +15,8 @@
             <table class="table table-sm table-bordered text-center" id="datatable-detalles">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
-                        <th>Descripción</th>
                         <th>Fecha</th>
+                        <th>Descripción</th>
                         <th>Imagen</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
@@ -59,13 +58,10 @@
             let table = $('#datatable-detalles').DataTable({
                 ajax: "{{ route('admin.mantenimientos.horarios.detalles.index', [$mantenimiento, $horario]) }}",
                 columns: [{
-                        data: 'id'
+                        data: 'fecha'
                     },
                     {
                         data: 'descripcion'
-                    },
-                    {
-                        data: 'fecha'
                     },
                     {
                         data: 'imagen',
