@@ -6,6 +6,9 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\VehicletypeController;
 use App\Http\Controllers\ScheduleShiftController;
 use App\Http\Controllers\ContracttypeController;
+use App\Http\Controllers\DetalleHorarioMantenimientoController;
+use App\Http\Controllers\HorarioMantenimientoController;
+use App\Http\Controllers\MantenimientoController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,11 +20,27 @@ Route::middleware([
     Route::get('/admin', function () {
         return view('admin.index');
     });
-    // Aquí puedes agregar más rutas administrativas
+    Route::resource('mantenimientos', \App\Http\Controllers\MantenimientoController::class)->names('admin.mantenimientos');
 });
 
 
 Route::resource('brands', BrandController::class)->names('admin.brands');
+
+
+// MANTENIMIENTOS
+
+
+Route::resource('mantenimientos', MantenimientoController::class)->names('admin.mantenimientos');
+Route::resource('mantenimientos.horarios', HorarioMantenimientoController::class)
+    ->names('admin.mantenimientos.horarios');
+Route::resource('mantenimientos.horarios.detalles', DetalleHorarioMantenimientoController::class)
+    ->names('admin.mantenimientos.horarios.detalles');
+
+
+
+// FIM DE LOS MANTENIMIENTOS
+
+
 Route::resource('brandmodels', BrandmodelController::class)->names('admin.brandmodels');
 Route::resource('colors', ColorController::class)->names('admin.colors');
 Route::resource('employees', \App\Http\Controllers\EmployeeController::class)->names('admin.employees');

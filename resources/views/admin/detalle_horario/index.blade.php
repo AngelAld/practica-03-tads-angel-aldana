@@ -1,24 +1,24 @@
 @extends('adminlte::page')
 
-@section('title', 'Modelos de Marca')
+@section('title', 'Detalles de Horario')
 
 @section('content')
     <div class="p-2"></div>
     <div class="card">
         <div class="card-header">
-            <button type="button" class="btn btn-primary float-right" id="btnNuevo"><i class="fas fa-folder-plus"></i>
-                Nuevo</button>
-            <h3>Modelos de Marca</h3>
+            <button type="button" class="btn btn-primary float-right" id="btnNuevoDetalle">
+                <i class="fas fa-folder-plus"></i> Nuevo
+            </button>
+            <h3>{{ $mantenimiento->nombre }} - {{ $horario->dia_de_la_semana }} - {{ $horario->vehicle->name }}</h3>
         </div>
         <div class="card-body">
-            <table class="table table-sm table-bordered text-center" id="datatable">
+            <table class="table table-sm table-bordered text-center" id="datatable-detalles">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Código</th>
                         <th>Descripción</th>
-                        <th>Marca</th>
+                        <th>Fecha</th>
+                        <th>Imagen</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -28,19 +28,17 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+    <div class="modal fade" id="ModalDetalle" tabindex="-1" role="dialog" aria-labelledby="ModalDetalleTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLongTitle"></h5>
+                    <h5 class="modal-title" id="ModalDetalleTitle"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    {{-- Aquí se carga el formulario --}}
-                </div>
+                <div class="modal-body"></div>
             </div>
         </div>
     </div>
@@ -53,34 +51,29 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
-        const destroyRoute = "{{ route('admin.brandmodels.destroy', ['brandmodel' => 'BRANDMODEL_ID']) }}";
+        const destroyRoute =
+            "{{ route('admin.mantenimientos.horarios.detalles.destroy', [$mantenimiento, $horario, 'detalle' => 'DETALLE_ID']) }}";
         const csrfToken = "{{ csrf_token() }}";
 
         $(document).ready(function() {
-
-            let table = $('#datatable').DataTable({
-                ajax: "{{ route('admin.brandmodels.index') }}",
+            let table = $('#datatable-detalles').DataTable({
+                ajax: "{{ route('admin.mantenimientos.horarios.detalles.index', [$mantenimiento, $horario]) }}",
                 columns: [{
                         data: 'id'
                     },
                     {
-                        data: 'name'
+                        data: 'descripcion'
                     },
                     {
-                        data: 'code'
+                        data: 'fecha'
                     },
                     {
-                        data: 'description'
-                    },
-                    {
-                        data: 'brand_name'
-                    },
-                    {
-                        data: 'id',
-                        orderable: false,
-                        searchable: false,
+                        data: 'imagen',
                         render: function(data) {
-                            return `<button class="btn btn-success btn-sm btnEditar" id="${data}"><i class="fas fa-pen"></i></button>`;
+                            if (data) {
+                                return `<img src="/storage/${data}" alt="Imagen" width="60">`;
+                            }
+                            return '';
                         }
                     },
                     {
@@ -88,16 +81,24 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            let actionUrl = destroyRoute.replace('BRANDMODEL_ID', data);
+                            return `<button class="btn btn-success btn-sm btnEditarDetalle" id="${data}"><i class="fas fa-pen"></i></button>`;
+                        }
+                    },
+                    {
+                        data: 'id',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data) {
+                            let actionUrl = destroyRoute.replace('DETALLE_ID', data);
                             return `
-                            <form action="${actionUrl}" method="POST" class="frmDelete" style="display:inline;">
-                                <input type="hidden" name="_token" value="${csrfToken}">
-                                <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        `;
+                                <form action="${actionUrl}" method="POST" class="frmDeleteDetalle" style="display:inline;">
+                                    <input type="hidden" name="_token" value="${csrfToken}">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            `;
                         }
                     }
                 ],
@@ -107,15 +108,15 @@
             });
 
             // Botón Nuevo
-            $('#btnNuevo').click(function() {
+            $('#btnNuevoDetalle').click(function() {
                 $.ajax({
-                    url: "{{ route('admin.brandmodels.create') }}",
+                    url: "{{ route('admin.mantenimientos.horarios.detalles.create', [$mantenimiento, $horario]) }}",
                     type: "GET",
                     success: function(response) {
-                        $('#ModalLongTitle').html("Nuevo modelo de marca");
-                        $('#ModalCenter .modal-body').html(response);
-                        $('#ModalCenter').modal('show');
-                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
+                        $('#ModalDetalleTitle').html("Nuevo detalle");
+                        $('#ModalDetalle .modal-body').html(response);
+                        $('#ModalDetalle').modal('show');
+                        $('#ModalDetalle').off('submit', 'form').on('submit', 'form', function(
                             e) {
                             e.preventDefault();
                             var form = $(this);
@@ -127,7 +128,7 @@
                                 processData: false,
                                 contentType: false,
                                 success: function(response) {
-                                    $('#ModalCenter').modal('hide');
+                                    $('#ModalDetalle').modal('hide');
                                     Swal.fire({
                                         title: "Proceso exitoso",
                                         icon: "success",
@@ -157,16 +158,17 @@
             });
 
             // Botón Editar
-            $(document).on('click', '.btnEditar', function() {
+            $(document).on('click', '.btnEditarDetalle', function() {
                 var id = $(this).attr("id");
                 $.ajax({
-                    url: "{{ route('admin.brandmodels.edit', 'id') }}".replace('id', id),
+                    url: "{{ route('admin.mantenimientos.horarios.detalles.edit', [$mantenimiento, $horario, 'detalle' => 'id']) }}"
+                        .replace('id', id),
                     type: "GET",
                     success: function(response) {
-                        $('.modal-title').html("Editar modelo de marca");
-                        $('#ModalCenter .modal-body').html(response);
-                        $('#ModalCenter').modal('show');
-                        $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
+                        $('#ModalDetalleTitle').html("Editar detalle");
+                        $('#ModalDetalle .modal-body').html(response);
+                        $('#ModalDetalle').modal('show');
+                        $('#ModalDetalle').off('submit', 'form').on('submit', 'form', function(
                             e) {
                             e.preventDefault();
                             var form = $(this);
@@ -178,7 +180,7 @@
                                 processData: false,
                                 contentType: false,
                                 success: function(response) {
-                                    $('#ModalCenter').modal('hide');
+                                    $('#ModalDetalle').modal('hide');
                                     Swal.fire({
                                         title: "Proceso exitoso",
                                         icon: "success",
@@ -208,7 +210,7 @@
             });
 
             // Botón Eliminar
-            $(document).on('submit', '.frmDelete', function(e) {
+            $(document).on('submit', '.frmDeleteDetalle', function(e) {
                 e.preventDefault();
                 var form = $(this);
                 Swal.fire({
@@ -253,7 +255,3 @@
         });
     </script>
 @endsection
-
-@section('css')
-    {{-- Aquí puedes agregar estilos personalizados --}}
-@stop
