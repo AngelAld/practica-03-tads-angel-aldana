@@ -1,6 +1,7 @@
+{{-- filepath: resources/views/admin/mantenimientos/index.blade.php --}}
 @extends('adminlte::page')
 
-@section('title', 'Modelos de Marca')
+@section('title', 'Mantenimientos')
 
 @section('content')
     <div class="p-2"></div>
@@ -8,17 +9,17 @@
         <div class="card-header">
             <button type="button" class="btn btn-primary float-right" id="btnNuevo"><i class="fas fa-folder-plus"></i>
                 Nuevo</button>
-            <h3>Modelos de Marca</h3>
+            <h3>Mantenimientos</h3>
         </div>
         <div class="card-body">
             <table class="table table-sm table-bordered text-center" id="datatable">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
+
                         <th>Nombre</th>
-                        <th>Código</th>
-                        <th>Descripción</th>
-                        <th>Marca</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Horario</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -39,7 +40,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{-- Aquí se carga el formulario --}}
+
                 </div>
             </div>
         </div>
@@ -53,27 +54,31 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script>
-        const destroyRoute = "{{ route('admin.brandmodels.destroy', ['brandmodel' => 'BRANDMODEL_ID']) }}";
+        const destroyRoute = "{{ route('admin.mantenimientos.destroy', ['mantenimiento' => 'MANTENIMIENTO_ID']) }}";
         const csrfToken = "{{ csrf_token() }}";
 
         $(document).ready(function() {
 
             let table = $('#datatable').DataTable({
-                ajax: "{{ route('admin.brandmodels.index') }}",
+                ajax: "{{ route('admin.mantenimientos.index') }}",
                 columns: [{
-                        data: 'id'
+                        data: 'nombre'
                     },
                     {
-                        data: 'name'
+                        data: 'fecha_inicio'
                     },
                     {
-                        data: 'code'
+                        data: 'fecha_fin'
                     },
                     {
-                        data: 'description'
-                    },
-                    {
-                        data: 'brand_name'
+                        data: 'id',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data) {
+                            return `<a href="/mantenimientos/${data}/horarios" class="btn btn-light btn-sm" title="Ver horarios">
+                                <i class="fas fa-calendar-alt"></i>
+                            </a>`;
+                        }
                     },
                     {
                         data: 'id',
@@ -88,7 +93,7 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            let actionUrl = destroyRoute.replace('BRANDMODEL_ID', data);
+                            let actionUrl = destroyRoute.replace('MANTENIMIENTO_ID', data);
                             return `
                             <form action="${actionUrl}" method="POST" class="frmDelete" style="display:inline;">
                                 <input type="hidden" name="_token" value="${csrfToken}">
@@ -109,10 +114,10 @@
             // Botón Nuevo
             $('#btnNuevo').click(function() {
                 $.ajax({
-                    url: "{{ route('admin.brandmodels.create') }}",
+                    url: "{{ route('admin.mantenimientos.create') }}",
                     type: "GET",
                     success: function(response) {
-                        $('#ModalLongTitle').html("Nuevo modelo de marca");
+                        $('#ModalLongTitle').html("Nuevo mantenimiento");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
@@ -160,10 +165,10 @@
             $(document).on('click', '.btnEditar', function() {
                 var id = $(this).attr("id");
                 $.ajax({
-                    url: "{{ route('admin.brandmodels.edit', 'id') }}".replace('id', id),
+                    url: "{{ route('admin.mantenimientos.edit', 'id') }}".replace('id', id),
                     type: "GET",
                     success: function(response) {
-                        $('.modal-title').html("Editar modelo de marca");
+                        $('.modal-title').html("Editar mantenimiento");
                         $('#ModalCenter .modal-body').html(response);
                         $('#ModalCenter').modal('show');
                         $('#ModalCenter').off('submit', 'form').on('submit', 'form', function(
